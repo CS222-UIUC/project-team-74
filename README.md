@@ -8,8 +8,8 @@
 ### Run instructions
 ```bash
 cd frontend
-yarn
-yarn dev
+npm install
+npm run dev
 ```
 
 ### Build instructions
@@ -24,4 +24,4 @@ Taz Vongpatarakul
 
 Pitupoom Soontornthanon (as242)
 
-Matupoom Soontornthanon
+Matupoom Soontornthanon (ms201)
