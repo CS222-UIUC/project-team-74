@@ -27,7 +27,7 @@ function App() {
       </div>
       <p>Click on the Vite and React logos to learn more</p>
       <body>
-        <h1 className="text-4xl text-red-500">Test</h1>
+        <h1 className="text-xl text-red-500 underline">Test</h1>
       </body>
     </>
   );
