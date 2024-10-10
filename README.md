@@ -15,9 +15,10 @@ yarn dev
 ### Build instructions
 
 ## Backend
-- Infrastructure: Django
-- Database: SQLite
+
 
 ## Team Members
 Bose Pramuanpornsatid (bp17)
-Taz Vongpatarakul (Nv21)
+Taz Vongpatarakul
+Pitupoom Soontornthanon
+Matupoom Soontornthanon
