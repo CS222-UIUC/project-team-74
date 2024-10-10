@@ -19,6 +19,9 @@ yarn dev
 
 ## Team Members
 Bose Pramuanpornsatid (bp17)
+
 Taz Vongpatarakul
+
 Pitupoom Soontornthanon (as242)
+
 Matupoom Soontornthanon
