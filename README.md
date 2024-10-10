@@ -8,8 +8,8 @@
 ### Run instructions
 ```bash
 cd frontend
-yarn
-yarn dev
+npm install
+npm run dev
 ```
 
 ### Build instructions
