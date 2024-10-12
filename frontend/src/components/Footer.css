@@ -1,0 +1,9 @@
+
+.Div{
+    padding: 10px;
+    background-color:rgb(236, 162, 13);
+}
+.Div p{
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+}
