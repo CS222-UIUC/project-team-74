@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Homepage() {
   const [count, setCount] = useState(0);
@@ -11,6 +12,7 @@ function Homepage() {
     <div>
       <Navbar />
       <Hero />
+      <Footer />
     </div>
   )
 }

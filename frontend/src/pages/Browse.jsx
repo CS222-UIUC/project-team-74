@@ -4,8 +4,10 @@ function Browse()
 {
     return (
 
-        <Navbar / >
-
+        <>
+        <Navbar/ >
+        <h2>Browse page</h2>
+        </>
     );
 
 }

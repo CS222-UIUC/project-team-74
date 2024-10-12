@@ -4,7 +4,12 @@ function Post()
 {
     return (
 
-        <Navbar / >
+        <>
+        <Navbar/ >
+        <h2>Post</h2>
+    
+        </>
+        
 
     );
 

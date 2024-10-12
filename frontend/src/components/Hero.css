@@ -54,6 +54,7 @@
     background-color: rgb(255, 225, 127);
     transition: 220ms;
     scale: 1.02;
+    cursor: pointer;
 }
 
 #repair {

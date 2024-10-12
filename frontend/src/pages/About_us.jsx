@@ -1,10 +1,19 @@
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function About_us()
 {
     return (
 
-        <Navbar / >
+        <>
+        <Navbar/ >
+        <h2>About us</h2>
+        
+
+
+
+        </>
+        
 
     );
 
