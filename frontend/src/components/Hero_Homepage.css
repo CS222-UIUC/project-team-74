@@ -1,0 +1,154 @@
+.section-homepage {
+    display: flex;
+    height:700px;
+    color: black;
+    background-color:  rgb(247, 248, 233);
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.text-homepage {
+    margin-right: auto;
+    margin-left: 100px;
+    font-size: 50px;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    width: 520px;
+    height: 400px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+}
+
+#adv-homepage {
+    margin-bottom: 50px;
+    text-shadow: 3px 3px 0px #c5bb94;
+}
+
+#text-above-button-homepage {
+    font-size: 20px;
+    justify-content: center;
+    display: flex;
+    font-style: normal;
+    font-family: "Jost", sans-serif;
+}
+
+#button-homepage {
+    margin-left:auto;
+    margin-right:auto;
+    align-items: center;
+    justify-content: center;
+    display:flex;
+    height: 60px;
+    width: 90%;
+    font-size: 26px;
+    background-color: #8B805F;
+    color: #ececec;
+    border-radius: 10px;
+    font-family: "Fraunces", system-ui;
+    font-style: normal;
+    font-weight: 400;
+}
+
+#button-homepage:hover {
+    background-color: #524109;
+    transition: 220ms;
+    scale: 1.02;
+}
+
+#repair-homepage {
+    height: 330px;
+    box-shadow: -10px 10px 0px #c1b482;
+    flex-shrink: 1;
+    object-fit: cover;
+}
+
+#reverse-homepage {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#text-reverse-homepage {
+    gap: 20px;
+    font-size: 35px;
+    justify-content: center;
+}
+
+#repair-reverse-homepage {
+    height: 550px;
+    box-shadow: 10px 10px 0px #8F8570;
+}
+
+.grid-container-homepage {
+    display: grid;
+    grid-template-rows: 100px 100px 100px 100px;
+    grid-template-columns: 2.5fr 1.5fr;
+    align-items: center;
+    justify-items: center;
+}
+
+#review-title-homepage {
+    font-family: "Fraunces", system-ui;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    align-self:self-end;
+}
+
+#review-text-homepage {
+    text-indent: 40px;
+    font-family: "Jost", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 20px;
+    grid-column: 1/2;
+    grid-row: 2/5;
+    align-self: self-start;
+}
+
+#button-end1-homepage {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    background-color: #8a7e5d;
+    color:#ececec;
+    width: 320px;
+    height: 50px;
+    font-family: "Fraunces", system-ui;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    justify-content: center;
+}
+
+#button-end1-homepage:hover {
+    background-color: #d1d1d1;
+    color:8a7e5d;
+}
+
+#button-end2-homepage {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    background-color: #8a7e5d;
+    color:#ececec;
+    width: 320px;
+    height: 50px;
+    font-family: "Fraunces", system-ui;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    justify-content: center;
+}
+
+#button-end2-homepage:hover {
+    background-color: #d1d1d1;
+    color:#8a7e5d;
+}
