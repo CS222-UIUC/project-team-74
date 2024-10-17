@@ -1,4 +1,5 @@
 import './Hero_Homepage.css'
+import { Link } from 'react-router-dom';
 
 function Hero_Homepage() {
   return (
@@ -8,7 +9,7 @@ function Hero_Homepage() {
             <div id="adv-homepage">FASTEST<br/>CHEAPEST<br/>MOST CONVENIENT</div>
             <div>
             <div id="text-above-button-homepage">What are you waiting for?</div>
-            <div id="button-homepage">FIND YOUR HANDYMEN NOW</div>
+            <Link to="/" id="button-homepage">FIND YOUR HANDYMEN NOW</Link>
             </div>
         </div>
         <img id="repair-homepage" src='/images/image3.jpeg' alt='repair man' />
@@ -29,8 +30,8 @@ function Hero_Homepage() {
     <div className="section-homepage" style={{ height: "500px" }}>
       <div className="grid-container-homepage">
         <div id="review-title-homepage">Review</div>
-        <div id="button-end1-homepage">Find Your Handymen</div>
-        <div id="button-end2-homepage">Browse Handyman Profile</div>
+        <Link to="/" id="button-end1-homepage">Find Your Handymen</Link>
+        <Link to="/" id="button-end2-homepage">Browse Handyman Profile</Link>
         <div id="review-text-homepage">&quot;HandyHelper made it incredibly easy to find trustworthy handymen. I quickly connected with a local student for a repair, and the whole process—from messaging to payment—was seamless. Highly recommend it for college students needing affordable, reliable help!&quot;</div>
       </div>
     </div>
