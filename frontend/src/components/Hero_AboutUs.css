@@ -1,0 +1,45 @@
+.section-aboutus {
+    display: flex;
+    /* border: solid red; */
+    height:700px;
+    color: black;
+    background-color:  rgb(247, 248, 233);
+    align-items: center;
+    justify-content: center;
+}
+
+#bg-image-aboutus {
+    height:700px;
+    width:100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+    z-index: 1;
+}
+
+.container-aboutus {
+    position: absolute;
+    z-index: 2;
+    display:flex;
+    flex-direction: column;
+    max-width: 60%;
+    gap: 20px;
+}
+
+.title-aboutus {
+    display: flex;
+    color: white;
+    font-size: 100px;
+    font-family: "Fraunces", system-ui;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-aboutus {
+    text-indent: 40px;
+    color: white;
+    font-size: 20px;
+    font-family: "Jost", sans-serif;
+    font-weight: 300;
+
+}
