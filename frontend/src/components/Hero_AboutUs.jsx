@@ -1,3 +1,5 @@
+import React from 'react'
+
 import './Hero_AboutUs.css'
 
 function Hero_AboutUs() {
