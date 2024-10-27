@@ -12,6 +12,12 @@ npm install
 npm run dev
 ```
 
+### Linting instructions (Please run before committing)
+```bash
+npm run lint
+npm run lint:fix
+```
+
 ### Build instructions
 
 ## Backend

@@ -1,0 +1,20 @@
+name: Lint
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend  # Specify the frontend folder where package.json is located
+    steps:
+      - uses: actions/checkout@v3  # Checkout the code
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install  # This will install packages in the frontend directory
+      - name: Run ESLint
+        run: npm run lint  # Runs the lint command from the frontend directory
