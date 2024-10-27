@@ -1,4 +1,4 @@
-import LoginComp from "../components/LoginComp";
+import LoginComp from "../components/Hero_Login";
 import Navbar from "../components/Navbar"
 
 

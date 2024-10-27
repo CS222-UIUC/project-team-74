@@ -1,14 +1,14 @@
-import styles from './LoginComp.module.css';
+import styles from './Hero_Login_and_Register.module.css';
 import { FaLock } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function LoginComp() {
     return (
         <div className={styles.wrapperwrapper}>
-            <img id='bg-image-login' src='public\images\image6.jpg' />
         <div className={styles.wrapper}>
             <form action="">
-                <h1>Login</h1>
+                <h1 style={{ fontWeight: 750, fontFamily: "Fraunces" }}>Login</h1>
                 <div className={styles['input-box']}>
                     <input type="text" placeholder="Username" required />
                     <FaUser className={styles.icon} />
@@ -25,7 +25,7 @@ function LoginComp() {
                 <button type="submit" className = {styles.loginbutton}>Login</button>
 
                 <div className={styles['register-link']}>
-                    <p>Don't have an account? <a href="#">Register</a></p>
+                    <p>Don&apos;t have an account? <Link to="/register">Register</Link></p>
                 </div>
             </form>
         </div>
