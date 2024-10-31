@@ -5,7 +5,6 @@ import Hero_AboutUs from '../components/Hero_AboutUs'
 function AboutUs() {
   return (
     <>
-    <Navbar/>
     <Hero_AboutUs/>
     </>
   )

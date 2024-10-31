@@ -7,7 +7,6 @@ function Login()
 
     return(
         <>
-        <Navbar></Navbar>
         <LoginComp></LoginComp>
         </>
     );
