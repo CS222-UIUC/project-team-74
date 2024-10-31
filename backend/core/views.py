@@ -8,8 +8,6 @@ from django.utils.decorators import method_decorator
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
-from django.shortcuts import render
-from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -32,8 +30,3 @@ class JobPostingViewSet(viewsets.ModelViewSet):
             # Log or print the error if there's an IntegrityError
             print("Error in perform_create:", e)
             raise
-
-def job_posting_list(request):
-    job_postings = JobPosting.objects.all()
-    job_postings_data = JobPostingSerializer(job_postings, many=True).data
-    return JsonResponse(job_postings_data, safe=False)

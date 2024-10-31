@@ -12,7 +12,6 @@ import Post from "./pages/Post.jsx";
 import Browse from "./pages/Browse.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import PostedJob from './components/PostedJob.jsx';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -26,7 +25,6 @@ createRoot(document.getElementById("root")).render(
           <Route path="/browse" element={<Browse />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/posted-jobs" element={<PostedJob />} />
         </Routes>
       </App>
     </Router>
