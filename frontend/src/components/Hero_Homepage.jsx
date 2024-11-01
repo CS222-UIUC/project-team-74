@@ -33,7 +33,7 @@ function Hero_Homepage() {
           <div id="review-title-homepage">Review</div>
           <Link to="/post" id="button-end1-homepage">Find Your Handymen</Link>
           <Link to="/browse" id="button-end2-homepage">Browse Handyman Profile</Link>
-          <div id="review-text-homepage">"HandyHelper made it incredibly easy to find trustworthy handymen. I quickly connected with a local student for a repair, and the whole process—from messaging to payment—was seamless. Highly recommend it for college students needing affordable, reliable help!"</div>
+          <div id="review-text-homepage">&quot;HandyHelper made it incredibly easy to find trustworthy handymen. I quickly connected with a local student for a repair, and the whole process—from messaging to payment—was seamless. Highly recommend it for college students needing affordable, reliable help!&quot;</div>
         </div>
       </div>
     </>

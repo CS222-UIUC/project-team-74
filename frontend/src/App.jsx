@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from './components/Navbar';
 
 function App({ children }) {
@@ -9,5 +10,10 @@ function App({ children }) {
     </div>
   );
 }
+
+// Adding PropTypes for props validation
+App.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default App;
