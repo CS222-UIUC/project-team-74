@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Hero_Login_and_Register.module.css';
 import { FaLock } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
