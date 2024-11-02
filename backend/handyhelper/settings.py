@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-44j9f0wm84#5o25@i4!ss2-(1$fhs$0o4uhkvq5)p%3)r)&u49
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'core',
+    "core",
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "handyhelper.urls"
@@ -122,3 +125,29 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CORS configuration for development
+CORS_ALLOW_CREDENTIALS = True  # This allows credentials such as cookies to be included in cross-origin requests
+
+# Specify the allowed origins for CORS requests
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Allow your frontend development server
+]
+
+# Specify trusted origins for CSRF validation
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",  # Frontend origin
+]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Allows all users by default, modify this in views if needed
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+
+AUTH_USER_MODEL = 'core.User'
