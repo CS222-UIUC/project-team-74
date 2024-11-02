@@ -2,17 +2,19 @@ import React from 'react'
 
 import Navbar from "../components/Navbar";
 
+import PostRequest from "../components/PostRequest";
+
 function Post()
 {
     return (
 
         <>
-        <Navbar/ >
-        <h2>Post</h2>
-    
-        </>
+        <Navbar/>
+       <PostRequest/>
         
 
+     </>
+        
     );
 
 }

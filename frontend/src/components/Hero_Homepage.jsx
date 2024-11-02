@@ -10,7 +10,7 @@ function Hero_Homepage() {
             <div id="adv-homepage">FASTEST<br/>CHEAPEST<br/>MOST CONVENIENT</div>
             <div>
             <div id="text-above-button-homepage">What are you waiting for?</div>
-            <Link to="/" id="button-homepage">FIND YOUR HANDYMEN NOW</Link>
+            <Link to="/post" id="button-homepage">FIND YOUR HANDYMEN NOW</Link>
             </div>
         </div>
         <img id="repair-homepage" src='/images/image3.jpeg' alt='repair man' />
@@ -31,8 +31,8 @@ function Hero_Homepage() {
     <div className="section-homepage" style={{ height: "500px" }}>
       <div className="grid-container-homepage">
         <div id="review-title-homepage">Review</div>
-        <Link to="/" id="button-end1-homepage">Find Your Handymen</Link>
-        <Link to="/" id="button-end2-homepage">Browse Handyman Profile</Link>
+        <Link to="/post" id="button-end1-homepage">Find Your Handymen</Link>
+        <Link to="/browse" id="button-end2-homepage">Browse Handyman Profile</Link>
         <div id="review-text-homepage">&quot;HandyHelper made it incredibly easy to find trustworthy handymen. I quickly connected with a local student for a repair, and the whole process—from messaging to payment—was seamless. Highly recommend it for college students needing affordable, reliable help!&quot;</div>
       </div>
     </div>

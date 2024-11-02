@@ -9,7 +9,7 @@ function Navbar() {
         <Link to="/about-us" className='element'>ABOUT US</Link>
         <Link to="/post" className='element'>POST A REQUEST</Link>
         <Link to="/browse" className='element'>BROWSE HANDYMEN</Link>
-        <Link to="/signin" className='element'>SIGN IN</Link>
+        <Link to="/login" className='element'>LOG IN</Link>
     </div>
   )
 }
