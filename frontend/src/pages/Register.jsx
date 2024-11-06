@@ -1,6 +1,4 @@
-
 import React from 'react';
-
 import Hero_Register from "../components/Hero_Register"
 
 
