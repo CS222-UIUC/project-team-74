@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class User(AbstractUser):
-    is_handyman = models.BooleanField(default=False)
+    is_handyman = models.IntegerField(default=-1)
     reviews = models.TextField(blank=True, null=True)
     preferences = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=255, default="Champaign", blank=True)
