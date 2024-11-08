@@ -70,7 +70,7 @@ function Hero_Register() {
                     </div>
                     <div className={styles['input-box']}>
                         <input 
-                            type="password" 
+                            type="password"
                             placeholder="Confirm Password"
                             value={password2}
                             onChange={(e) => setPassword2(e.target.value)}
