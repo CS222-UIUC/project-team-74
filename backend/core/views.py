@@ -1,15 +1,18 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authtoken.models import Token
 from .models import JobPosting
-from .serializers import JobPostingSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .serializers import JobPostingSerializer, UserSerializer
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
-from django.shortcuts import render
 from django.http import JsonResponse
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 User = get_user_model()
 
@@ -33,7 +36,44 @@ class JobPostingViewSet(viewsets.ModelViewSet):
             print("Error in perform_create:", e)
             raise
 
+    def dashboard(self, request):
+        job_postings = self.get_queryset()
+        serializer = self.get_serializer(job_postings, many=True)
+        return Response(serializer.data)
+
 def job_posting_list(request):
     job_postings = JobPosting.objects.all()
     job_postings_data = JobPostingSerializer(job_postings, many=True).data
     return JsonResponse(job_postings_data, safe=False)
+
+
+# Registration View
+class RegisterUser(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({"token": token.key}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Profile View
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+       
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request):
+        user = request.user
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -13,6 +13,7 @@ import Browse from "./pages/Browse.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import PostedJob from './components/PostedJob.jsx';
+import Profile from './pages/Profile';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/posted-jobs" element={<PostedJob />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </App>
     </Router>
