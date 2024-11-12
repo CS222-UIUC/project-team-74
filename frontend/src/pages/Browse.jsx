@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Browse() {
     return (
@@ -65,5 +66,11 @@ function Handyman({ imgSrc, name, position }) {
         </a>
     );
 }
+
+Handyman.propTypes = {
+    imgSrc: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    position: PropTypes.string.isRequired,
+};
 
 export default Browse;
