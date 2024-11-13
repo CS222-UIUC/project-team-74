@@ -11,7 +11,7 @@ function MapBasic() {
         zoom: 14,
       }}
       style={{ width: 600, height: 400 }}
-      mapStyle={`https://api.maptiler.com/maps/streets/style.json?key=${import.meta.env.MAPTILER_KEY}`}
+      mapStyle={`https://api.maptiler.com/maps/streets/style.json?key=${import.meta.env.VITE_MAPTILER_KEY}`}
     />
   );
 }
