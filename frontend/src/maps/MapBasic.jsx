@@ -8,7 +8,7 @@ import Map, {
   GeolocateControl,
 } from "react-map-gl/maplibre";
 
-import ControlPanel from "./control-panel";
+// import ControlPanel from "./control-panel";
 import Pin from "./pin";
 import CAMPUS from "./campus.json";
 
