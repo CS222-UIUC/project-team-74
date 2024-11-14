@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 class User(AbstractUser):
     is_handyman = models.IntegerField(default=-1)
-    reviews = models.TextField(blank=True, null=True)
+    user_reviews = models.TextField(blank=True, null=True)
     preferences = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=255, default="Champaign", blank=True)
 
@@ -37,3 +37,23 @@ class JobPosting(models.Model):
     
     def __str__(self):
         return f"{self.title} by {self.user.username if self.user else 'Anonymous'}"
+
+# models.py
+
+class WorkHistory(models.Model):
+    job_posting = models.OneToOneField(JobPosting, on_delete=models.CASCADE)
+    handyman = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='work_history')
+
+    def __str__(self):
+        return f"Work on {self.job_posting.title} by {self.handyman.username if self.handyman else 'N/A'}"
+
+
+class Review(models.Model):
+    review_id = models.AutoField(primary_key=True)
+    written_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='written_reviews')
+    reviewed_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.IntegerField(default=0)
+    comment = models.TextField()
+
+    def __str__(self):
+        return f"Review by {self.written_by.username} - Rating: {self.rating}/10"

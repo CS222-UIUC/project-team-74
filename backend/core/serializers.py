@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import JobPosting
+from .models import JobPosting, Review, WorkHistory
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -29,3 +29,17 @@ class UserSerializer(serializers.ModelSerializer):
             is_handyman=-1  # Set default value to -1
         )
         return user
+    
+class WorkHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkHistory
+        fields = ['job_posting', 'handyman']
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    written_by = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    reviewed_user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = Review
+        fields = ['review_id', 'written_by', 'reviewed_user', 'rating', 'comment']

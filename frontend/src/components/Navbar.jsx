@@ -29,10 +29,12 @@ function Navbar() {
             {isLoggedIn ? (
                 <>
                      <Link to="/post" className='element'>POST A REQUEST</Link>
+                     <Link to="/review" className='element'>WRITE A REVIEW</Link>
                 </>
             ) : (
                <>
                 <Link to="/login" className='element'>POST A REQUEST</Link>
+                <Link to="/login" className='element'>WRITE A REVIEW</Link>
                </>
             )}
             <Link to="/browse" className='element'>BROWSE HANDYMEN</Link>
