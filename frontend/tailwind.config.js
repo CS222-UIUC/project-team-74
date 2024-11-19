@@ -9,7 +9,11 @@ export default {
       fontFamily: {
         fraunces: ['Fraunces', 'serif'],
         jost: ['Jost', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
+        'sans': ['ui-sans-serif', 'system-ui'],
+        'serif': ['ui-serif', 'Georgia'],
+        'mono': ['ui-monospace', 'SFMono-Regular'],
+        'roboto': ['roboto'],
+        'nunito': ['nunito']
       },
     },
   },
