@@ -14,7 +14,6 @@ export default {
         'nunito': ['nunito'],
         'fraunces': ['Fraunces', 'serif'],
         'jost': ['Jost', 'sans-serif'],
-        'roboto': ['Roboto', 'sans-serif'],
       },
     },
   },
