@@ -13,9 +13,8 @@ export default {
         'serif': ['ui-serif', 'Georgia'],
         'mono': ['ui-monospace', 'SFMono-Regular'],
         'roboto': ['roboto'],
-        'nunito': ['nunito']
-      }
+        'nunito': ['nunito'],     
     },
   },
   plugins: [],
-}
+}}
