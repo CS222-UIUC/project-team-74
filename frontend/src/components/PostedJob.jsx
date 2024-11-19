@@ -15,21 +15,21 @@ const PostedJob = () => {
   }, []);
 
   return (
-    <div className="max-w-full max-h-full pt-10 pr-10 pb-8 pl-10 bg-white">
-      <h1 className="text-[3.5rem] font-bold mb-6 text-center text-[#525252] font-fraunces">
+    <div className="max-w-full max-h-full pt-10 pr-10 pb-8 pl-10 bg-gray-50">
+      <h1 className="text-[3.5rem] font-bold mb-6 text-center text-green-700 font-fraunces">
         Job Postings
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2 pl-10 pr-10">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-6 pt-2 pl-10 pr-10 pb-20 ">
         {jobs.map(job => (
           <div
             key={job.id}
-            className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300"
+            className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200"
           >
             <h2 className="text-2xl font-bold mb-2 text-[#b38600]">
               {job.title}
             </h2>
             <p className="text-gray-600 mb-2">{job.description}</p>
-            <p className="text-gray-500 italic">Location: {job.location}</p>
+            <p className="text-blue-800 italic font-semibold">Location: {job.location}</p>
             <p className="text-green-600 font-semibold mt-2">Price: ${job.price}</p>
           </div>
         ))}
