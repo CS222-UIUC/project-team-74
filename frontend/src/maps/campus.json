@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Illini Union",
+        "latitude": 40.109236196111944,
+        "longitude": -88.22717393268717,
+        "image": "https://illiniunionhotel.illinois.edu/sites/default/files/styles/hero_image/public/paragraphs/hero/2024-09/UnionQuadShot.jpg?h=2d298297&itok=S0XXTy_-",
+        "price": "100",
+        "user": "",
+        "description": "Lorem Ipsum"
+    },
+    {
+        "name": "Main Quad",
+        "latitude": 40.10790589116004,
+        "longitude": -88.22718081260346,
+        "image": "https://lh5.googleusercontent.com/p/AF1QipNZMxaKXQuhN5BL5guX8KNDgnG7D5_QuEjrl5Aw=w408-h306-k-no",
+        "price": "50",
+        "user": "",
+        "description": "Lorem Ipsum"
+    },
+    {
+        "name": "Grainger Engineering Library",
+        "latitude": 40.11283206348802,
+        "longitude": -88.22665859817621,
+        "image": "https://lh5.googleusercontent.com/p/AF1QipP33IKTYTq8OwqbT0PHhrYXs3T9RhA8oFTxvCDC=w408-h306-k-no",
+        "price": "1000",
+        "user": "",
+        "description": "Lorem Ipsum"
+    }
+]
