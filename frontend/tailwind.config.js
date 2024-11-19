@@ -11,7 +11,10 @@ export default {
         'serif': ['ui-serif', 'Georgia'],
         'mono': ['ui-monospace', 'SFMono-Regular'],
         'roboto': ['roboto'],
-        'nunito': ['nunito']
+        'nunito': ['nunito'],
+        'fraunces': ['Fraunces', 'serif'],
+        'jost': ['Jost', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
       },
     },
   },
