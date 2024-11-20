@@ -352,7 +352,7 @@ const Profile = () => {
     e.preventDefault();
     setUpdating(true);
     try {
-      await axios.put("http://127.0.0.1:8000/api/user/", user, {
+      await axios.put("http://127.0.0.1:8000/api/profile/", user, {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
