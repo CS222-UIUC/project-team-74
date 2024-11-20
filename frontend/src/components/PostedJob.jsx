@@ -15,7 +15,7 @@ const PostedJob = () => {
   }, []);
 
   return (
-    <div className="max-w-full max-h-full pt-10 pr-10 pb-8 pl-10 bg-gray-50">
+    <div className="max-w-full max-h-full pt-10 pr-10 pb-8 pl-10 bg-white">
       <h1 className="text-[3.5rem] font-bold mb-6 text-center text-green-700 font-fraunces">
         Job Postings
       </h1>
