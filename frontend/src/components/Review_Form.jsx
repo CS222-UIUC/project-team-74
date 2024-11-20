@@ -66,7 +66,7 @@ function ReviewForm() {
 
     return (
         <div className="job-post-form-container"> {/* Reuse the container class for styling consistency */}
-            <h2>Submit a Review</h2>
+            <h1 className= "text-[3.5rem] font-fraunces font-bold text-3xl text-[#525252] py-10">Submit a Review</h1>
             <form onSubmit={handleSubmit} className="job-post-form"> {/* Reuse form class */}
                 <input
                     type="number"
