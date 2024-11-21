@@ -7,7 +7,7 @@ User = get_user_model()
 class JobPostingSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobPosting
-        fields = ['id', 'title', 'description', 'location', 'price']
+        fields = ['id', 'title', 'description', 'location', 'price', 'coordinates', 'created_at', 'status', 'user']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
