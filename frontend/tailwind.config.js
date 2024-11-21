@@ -5,16 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {  
-      fontFamily: {
-        fraunces: ['Fraunces', 'serif'],
-        jost: ['Jost', 'sans-serif'],
+    extend: {
+      fontFamily:{
         'sans': ['ui-sans-serif', 'system-ui'],
         'serif': ['ui-serif', 'Georgia'],
         'mono': ['ui-monospace', 'SFMono-Regular'],
         'roboto': ['roboto'],
-        'nunito': ['nunito'],     
+        'nunito': ['nunito'],
+        'fraunces': ['Fraunces', 'serif'],
+        'jost': ['Jost', 'sans-serif'],
+      },
     },
   },
   plugins: [],
-}}
+}
