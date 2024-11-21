@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
-from .models import JobPosting
-from .serializers import JobPostingSerializer, UserSerializer
+from .models import JobPosting, Review, WorkHistory
+from .serializers import JobPostingSerializer, UserSerializer, ReviewSerializer, WorkHistorySerializer
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -77,3 +77,19 @@ class ProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(written_by=self.request.user)
+
+class WorkHistoryViewSet(viewsets.ModelViewSet):
+    queryset = WorkHistory.objects.all()
+    serializer_class = WorkHistorySerializer
+    permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        serializer.save()

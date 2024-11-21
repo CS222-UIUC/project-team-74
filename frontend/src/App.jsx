@@ -4,12 +4,13 @@ import Navbar from './components/Navbar';
 
 function App({ children }) {
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar />
-      <main>{children}</main>
+      <main style={{ flex: 1, overflow: 'hidden' }}>{children}</main>
     </div>
   );
 }
+
 App.propTypes = {
   children: PropTypes.node,
 };
