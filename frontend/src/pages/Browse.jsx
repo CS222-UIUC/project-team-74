@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { IoStarSharp } from "react-icons/io5";
 
 function Browse() {
     const [selectedHandyman, setSelectedHandyman] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handymen = [
         {
@@ -41,6 +43,12 @@ function Browse() {
         },
     ];
 
+    // Filter handymen based on the search term
+    const filteredHandymen = handymen.filter(handyman => 
+        handyman.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        handyman.position.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <>
             <div className="flex flex-wrap bg-white">
@@ -53,8 +61,20 @@ function Browse() {
                                     Browse through a list of skilled handymen ready to assist with your maintenance needs and find the perfect match for you!
                                 </span>
                             </div>
+
+                            {/* Search Bar */}
+                            <div className="mb-6 text-center">
+                                <input
+                                    type="text"
+                                    placeholder="Search by name or position"
+                                    className="w-64 px-6 py-2 border rounded-lg shadow-sm bg-white text-[#525252] font-fraunces"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+
                             <div className="flex flex-wrap w-full justify-center items-center">
-                                {handymen.map((handyman, index) => (
+                                {filteredHandymen.map((handyman, index) => (
                                     <Handyman
                                         key={index}
                                         {...handyman}
@@ -83,10 +103,21 @@ function Browse() {
                             alt={selectedHandyman.name}
                         />
                         <h2 className="text-xl font-bold text-center text-[#a67905] mb-2">
-                            {selectedHandyman.name} {selectedHandyman.rating != null ? `(${selectedHandyman.rating}/10)` : ""}
+                            {selectedHandyman.name}
+                            {selectedHandyman.rating != null ? (
+                                <>
+                                    <span>{` (${selectedHandyman.rating}/10)`}</span>
+                                    <IoStarSharp className="inline-block text-yellow-500 text-2xl ml-1 pb-1" /> {/* Star Icon */}
+                                </>
+                            ) : ""}
                         </h2>
                         <p className="text-center font-semibold text-muted text-[#525252]">{selectedHandyman.position}</p>
                         <p className="text-center px-8 text-sm text-gray-700 mt-4">{selectedHandyman.details}</p>
+                        <a href="javascript:void(0)">
+                            <button className="bg-yellow-600 rounded-md px-5 py-2 text-white mt-6 hover:bg-yellow-700 transition-colors duration-100 ease-in-out mx-auto block">
+                            Contact Now
+                            </button>
+                        </a>
                     </div>
                 </div>
             )}
