@@ -27,6 +27,7 @@ function ReviewForm() {
         }
     }, []);
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -65,8 +66,27 @@ function ReviewForm() {
         }
     };
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show2');
+            } else {
+              entry.target.classList.remove('show2');
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll('.hidden2'); 
+        hiddenElements.forEach((el) => observer.observe(el));
+    
+      
+        return () => observer.disconnect();
+      }, []);
+    
+
     return (
-        <div className="job-post-form-container"> {/* Reuse the container class for styling consistency */}
+        <div className="job-post-form-container hidden2"> {/* Reuse the container class for styling consistency */}
             <h1 className= "text-[3.5rem] font-fraunces font-bold text-3xl text-[#525252] py-10">Submit a Review</h1>
             <form onSubmit={handleSubmit} className="job-post-form"> {/* Reuse form class */}
                 <h1 className= "font-roboto font-bold text-xl text-green-700">Rating</h1>
