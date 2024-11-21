@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import Map, {
   Marker,
   NavigationControl,
@@ -22,7 +23,7 @@ function MapPost({ onLocationSelect }) {
       initialViewState={{
         longitude: -88.227206,
         latitude: 40.108366,
-        zoom: 13,
+        zoom: 12,
         minZoom: 9,
       }}
       mapStyle={`https://api.maptiler.com/maps/abe94a0c-8bd0-452a-9877-c81b511b9e7a/style.json?key=${
@@ -46,5 +47,8 @@ function MapPost({ onLocationSelect }) {
     </Map>
   );
 }
+MapPost.propTypes = {
+  onLocationSelect: PropTypes.func.isRequired,
+};
 
 export default MapPost;
