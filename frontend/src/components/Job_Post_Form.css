@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    height: 800px;
-   
+    height: calc(100vh - 64px); /* Adjust height to account for the navbar */
+    width: 100%;
     background-color: rgb(247, 248, 233);
     color: black;
 }

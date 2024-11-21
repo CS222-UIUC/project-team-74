@@ -4,15 +4,11 @@ import Navbar from './components/Navbar';
 
 function App({ children }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div className="flex flex-col h-screen">
       <Navbar />
-      <main style={{ flex: 1, overflow: 'hidden' }}>{children}</main>
+      <main className="flex-1 overflow-y-auto">{children}</main>
     </div>
   );
 }
-
-App.propTypes = {
-  children: PropTypes.node,
-};
 
 export default App;
