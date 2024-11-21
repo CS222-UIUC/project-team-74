@@ -54,7 +54,7 @@ const Job_Post_Form = () => {
 
     return (
         <div className="job-post-form-container">
-            <h1 className= "text-[3.5rem] font-fraunces font-bold text-3xl text-green-700 py-10">Post a Job Request</h1>
+            <h1 className= "font-roboto font-bold text-3xl text-green-700 pb-5">Post a Job Request</h1>
             <form onSubmit={handleSubmit} className="job-post-form">
                 <h1 className= "font-roboto font-bold text-xl text-green-700">Job Title</h1>
 
