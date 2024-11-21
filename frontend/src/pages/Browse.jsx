@@ -1,59 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Browse() {
+    const [selectedHandyman, setSelectedHandyman] = useState(null);
+
+    const handymen = [
+        {
+            imgSrc: "https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar11.jpg",
+            name: "Samantha Reynolds",
+            position: "Plumber",
+            details: "Expert in plumbing services with 10+ years of experience. Specializes in residential repairs and installations.",
+            rating: 8.5
+        },
+        {
+            imgSrc: "https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar2.jpg",
+            name: "Benjamin Martinez",
+            position: "Painter",
+            details: "Skilled painter experienced in interior and exterior home painting. Known for attention to detail.",
+        },
+        {
+            imgSrc: "https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar5.jpg",
+            name: "Emily Turner",
+            position: "Electrician",
+            details: "Certified electrician specializing in both residential and commercial electrical work.",
+            rating: 9.5
+        },
+        {
+            imgSrc: "https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar24.jpg",
+            name: "Jason Anderson",
+            position: "Plumber",
+            details: "Experienced plumber with expertise in advanced piping systems and emergency repairs.",
+            rating: 8.0
+        },
+        {
+            imgSrc: "https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar23.jpg",
+            name: "Olivia Carter",
+            position: "Electrician",
+            details: "Expert in electrical troubleshooting and installations. Focuses on energy-efficient solutions.",
+            rating: 8.5
+        },
+    ];
+
     return (
         <>
             <div className="flex flex-wrap bg-white">
                 <div className="w-full max-w-full px-3 mb-6 mx-auto">
-                        <div className="flex-auto block py-8 px-9">
-                            <div>
-                                <div className="mb-9 text-center">
-                                    <h1 className="mb-2 text-[4.25rem] font-bold text-[#525252] font-fraunces">Handymen</h1>
-                                    <span className="text-[1.15rem] font-medium text-muted text-[#3f3f46] font-jost">
-                                        Browse through a list of skilled handymen ready to assist with your maintenance needs and find the perfect match for you!
-                                    </span>
-                                </div>
-                                <div className="flex flex-wrap w-full justify-center items-center">
-                                    <Handyman
-                                        imgSrc="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar11.jpg"
-                                        name="Samantha Reynolds"
-                                        position="Plumber"
-                                    />
-                                    <Handyman
-                                        imgSrc="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar2.jpg"
-                                        name="Benjamin Martinez"
-                                        position="Painter"
-                                    />
-                                    <Handyman
-                                        imgSrc="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar5.jpg"
-                                        name="Emily Turner"
-                                        position="Electrician"
-                                    />
-                                    <Handyman
-                                        imgSrc="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar24.jpg"
-                                        name="Jason Anderson"
-                                        position="Plumber"
-                                    />
-                                    <Handyman
-                                        imgSrc="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar23.jpg"
-                                        name="Olivia Carter"
-                                        position="Electrician"
-                                    />
-                                </div>
+                    <div className="flex-auto block py-8 px-9">
+                        <div>
+                            <div className="mb-9 text-center">
+                                <h1 className="mb-2 text-[4.25rem] font-bold text-[#525252] font-fraunces">Handymen</h1>
+                                <span className="text-[1.15rem] font-medium text-muted text-[#3f3f46] font-jost">
+                                    Browse through a list of skilled handymen ready to assist with your maintenance needs and find the perfect match for you!
+                                </span>
                             </div>
+                            <div className="flex flex-wrap w-full justify-center items-center">
+                                {handymen.map((handyman, index) => (
+                                    <Handyman
+                                        key={index}
+                                        {...handyman}
+                                        onClick={() => setSelectedHandyman(handyman)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Popup Modal */}
+            {selectedHandyman && (
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white p-12 rounded-lg shadow-lg max-w-md w-full relative">
+                        <button
+                            className="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-600"
+                            onClick={() => setSelectedHandyman(null)}
+                        >
+                            &times;
+                        </button>
+                        <img
+                            className="w-24 h-24 rounded-full mx-auto mb-4"
+                            src={selectedHandyman.imgSrc}
+                            alt={selectedHandyman.name}
+                        />
+                        <h2 className="text-xl font-bold text-center text-[#a67905] mb-2">
+                            {selectedHandyman.name} {selectedHandyman.rating != null ? `(${selectedHandyman.rating}/10)` : ""}
+                        </h2>
+                        <p className="text-center font-semibold text-muted text-[#525252]">{selectedHandyman.position}</p>
+                        <p className="text-center px-8 text-sm text-gray-700 mt-4">{selectedHandyman.details}</p>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
 
-function Handyman({ imgSrc, name, position }) {
+function Handyman({ imgSrc, name, position, onClick }) {
     return (
-        <a href="javascript:void(0)" className="flex flex-col mr-5 text-center text-[#525252] mb-11 lg:mr-16 transform hover:scale-105 transition-transform duration-200 ease-in-out">
+        <a
+            href="javascript:void(0)"
+            onClick={onClick}
+            className="flex flex-col mr-5 text-center text-[#525252] mb-11 lg:mr-16 transform hover:scale-105 transition-transform duration-200 ease-in-out"
+        >
             <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
-                <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src={imgSrc} alt={`${name} avatar`} />
+                <img
+                    className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]"
+                    src={imgSrc}
+                    alt={`${name} avatar`}
+                />
             </div>
             <div className="text-center">
                 <div className="text-[#a67905] font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">
@@ -69,6 +122,7 @@ Handyman.propTypes = {
     imgSrc: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     position: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
 };
 
 export default Browse;
