@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Hero_Homepage.css';
 import { Link } from 'react-router-dom';
 
 function Hero_Homepage() {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        } else {
+          entry.target.classList.remove('show');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
-      <div className="section-homepage">
+      <div className="section-homepage hidden">
         <div className="text-homepage">
           <div id="adv-homepage">FASTEST<br />CHEAPEST<br />MOST CONVENIENT</div>
           <div>
@@ -16,19 +34,19 @@ function Hero_Homepage() {
         <img id="repair-homepage" src="/images/image3.jpeg" alt="repair man" />
       </div>
 
-      <div className="section-homepage" id="reverse-homepage">
-        <div className="text-homepage" id="text-reverse-homepage">
-          <div><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Skilled Handymen</div>
-          <div><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Easy Job Posting</div>
-          <div><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Direct Chat</div>
-          <div><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Secure Payment</div>
-          <div><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Location-Based Search</div>
-          <div><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Full of Reviews</div>
+      <div className="section-homepage hidden" id="reverse-homepage">
+        <div className="text-homepage hidden" id="text-reverse-homepage">
+          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Skilled Handymen</div>
+          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Easy Job Posting</div>
+          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Direct Chat</div>
+          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Secure Payment</div>
+          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Location-Based Search</div>
+          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Full of Reviews</div>
         </div>
-        <img id="repair-reverse-homepage" src="/images/image2.png" alt="repair man" />
+        <img className="repair-reverse-homepage " src="/images/image2.png" alt="repair man" />
       </div>
 
-      <div className="section-homepage" style={{ height: "500px" }}>
+      <div className="section-homepage hidden" style={{ height: "500px" }}>
         <div className="grid-container-homepage">
           <div id="review-title-homepage">Review</div>
           <Link to="/post" id="button-end1-homepage">Find Your Handymen</Link>

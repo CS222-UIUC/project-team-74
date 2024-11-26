@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './Job_Post_Form.css';
 import { MdOutlineTitle,MdSubtitles } from "react-icons/md";
@@ -50,10 +50,28 @@ const Job_Post_Form = () => {
             console.error('Error posting job:', error);
         }
     };
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show2');
+            } else {
+              entry.target.classList.remove('show2');
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll('.hidden2'); 
+        hiddenElements.forEach((el) => observer.observe(el));
+    
+      
+        return () => observer.disconnect();
+      }, []);
     
 
     return (
-        <div className="job-post-form-container">
+        <div className="job-post-form-container hidden2">
             <h1 className= "font-roboto font-bold text-3xl text-green-700 pb-5">Post a Job Request</h1>
             <form onSubmit={handleSubmit} className="job-post-form">
                 <h1 className= "font-roboto font-bold text-xl text-green-700">Job Title</h1>

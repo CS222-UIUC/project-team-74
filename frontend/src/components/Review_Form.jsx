@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Job_Post_Form.css';  // Reusing the same CSS for styling consistency
+import { FaStar ,FaCommentAlt,FaRegIdCard  } from "react-icons/fa";
 
 function ReviewForm() {
     const [rating, setRating] = useState('');
@@ -25,6 +26,7 @@ function ReviewForm() {
             });
         }
     }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,35 +66,75 @@ function ReviewForm() {
         }
     };
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show2');
+            } else {
+              entry.target.classList.remove('show2');
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll('.hidden2'); 
+        hiddenElements.forEach((el) => observer.observe(el));
+    
+      
+        return () => observer.disconnect();
+      }, []);
+    
+
     return (
-        <div className="job-post-form-container"> {/* Reuse the container class for styling consistency */}
+        <div className="job-post-form-container hidden2"> {/* Reuse the container class for styling consistency */}
             <h1 className= "text-[3.5rem] font-fraunces font-bold text-3xl text-[#525252] py-10">Submit a Review</h1>
             <form onSubmit={handleSubmit} className="job-post-form"> {/* Reuse form class */}
+                <h1 className= "font-roboto font-bold text-xl text-green-700">Rating</h1>
+
+                <div className="relative w-90" >
                 <input
                     type="number"
                     value={rating}
                     onChange={(e) => setRating(e.target.value)}
                     placeholder="Rating (0-10)"
-                    className="job-post-input"  // Added CSS class for consistent input styling
+                    
                     min="0"
                     max="10"
                     required
+                    className ="pl-10 py-2 w-[450px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                 />
+                <FaStar  className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
+
+                </div>
+
+
+
+                <h1 className= "font-roboto font-bold text-xl text-green-700">Comment</h1>
+
+                <div className="relative w-90">
                 <textarea
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Your Comment"
-                    className="job-post-textarea" // Added CSS class for consistent textarea styling
+                    className="pl-10 py-2 w-[450px] h-[200px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                 />
+
+                <FaCommentAlt    className="absolute bottom-3 right-3 text-gray-400" />
+                </div>
+
+                <div className="relative w-90">
+                <h1 className= "font-roboto font-bold text-xl text-green-700 pb-[10px]">User ID</h1>
                 <input
                     type="text"
                     value={reviewedUser}
                     onChange={(e) => setReviewedUser(e.target.value)}
                     placeholder="Reviewed User ID"
-                    className="job-post-input" // Added CSS class for consistent input styling
+                    className ="pl-10 py-2 w-[450px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                     required
                 />
+                <FaRegIdCard   className="absolute top-3/4 right-3 transform -translate-y-1/2 text-gray-400" />
+                </div>
                 <button type="submit" className="job-post-button">Submit Review</button> {/* Reuse button styling */}
             </form>
         </div>

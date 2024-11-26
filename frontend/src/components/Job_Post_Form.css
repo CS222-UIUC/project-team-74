@@ -56,3 +56,17 @@
 .job-post-form button:hover {
     background-color: #524109;
 }
+
+.hidden2{
+    opacity:0;
+    filter:blur(10px);
+    transition: all 0.5s;
+
+  }
+
+  .show2{
+    opacity: 1;
+    filter:blur(0px);
+    transform: translateX(0);
+    transition: all 0.5s;
+  }
