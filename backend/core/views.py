@@ -78,6 +78,15 @@ class ProfileView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+class HandymenViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+
+    def list(self, request):
+        users = User.objects.filter(is_handyman=True)  # Retrieve all users
+        serializer = UserSerializer(users, many=True)  # Serialize the users
+        return Response(serializer.data)  # Return the serialized data as a response
+
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer

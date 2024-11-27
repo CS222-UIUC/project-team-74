@@ -9,6 +9,8 @@ class User(AbstractUser):
     user_reviews = models.TextField(blank=True, null=True)
     preferences = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=255, default="Champaign", blank=True)
+    details = models.TextField(blank=True, null=True)
+    specialty = models.CharField(max_length=60, default="General", blank=True)
 
     # Add related_name attributes to avoid conflicts with the built-in User model
     groups = models.ManyToManyField(

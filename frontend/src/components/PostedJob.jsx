@@ -126,9 +126,17 @@ const PostedJob = () => {
             <p className="text-green-600 font-semibold mt-2">
               Price: ${selectedJob.price}
             </p>
-            <button className="bg-[#b38600] rounded-md px-5 py-2 text-white mt-6 hover:bg-yellow-700 transition-colors duration-100 ease-in-out mx-auto block">
-              Contact Now
-            </button>
+            <p className="text-red-800 font-semibold mt-2">
+              Request by: {selectedJob.user.first_name ? selectedJob.user.first_name + " " + selectedJob.user.last_name   : "N/A"}
+            </p>
+            <div className="flex justify-center items-center">
+              <a
+                href={selectedJob.user.email ? `mailto:${selectedJob.user.email}` : "javascript:void(0)"}
+                className="bg-[#b38600] rounded-md px-5 py-2 text-white mt-6 hover:bg-yellow-700 transition-colors duration-100 ease-in-out mx-auto block"
+              >
+                Contact Now
+              </a>
+            </div>
           </div>
         </div>
       )}
