@@ -109,10 +109,21 @@ const ProfileDisplay = ({ user, onEdit }) => (
           <h3 className="text-sm font-medium text-gray-700">Last Name</h3>
           <p className="mt-1 text-sm text-gray-900">{user.last_name}</p>
         </div>
-        <div className="sm:col-span-2">
+        <div>
           <h3 className="text-sm font-medium text-gray-700">Location</h3>
           <p className="mt-1 text-sm text-gray-900">{user.location}</p>
         </div>
+        {user.is_handyman === 1 && (<>
+        <div>
+          <h3 className="text-sm font-medium text-gray-700">Specialty</h3>
+          <p className="mt-1 text-sm text-gray-900">{user.specialty}</p>
+        </div>
+        <div className="sm:col-span-2">
+          <h3 className="text-sm font-medium text-gray-700">Details</h3>
+          <p className="mt-1 text-sm text-gray-900">{user.details}</p>
+        </div>
+        </>)}
+
       </div>
       <button
         onClick={onEdit}
@@ -131,6 +142,9 @@ ProfileDisplay.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
+    specialty: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    is_handyman: PropTypes.number.isRequired
   }).isRequired,
   onEdit: PropTypes.func.isRequired,
 };
@@ -224,7 +238,7 @@ const ProfileEditor = ({
           </div>
         </div>
 
-        <div className="sm:col-span-2">
+        <div>
           <label
             htmlFor="location"
             className="block text-sm font-medium text-gray-700"
@@ -242,6 +256,48 @@ const ProfileEditor = ({
             />
           </div>
         </div>
+        { (user.is_handyman === 1) && ( <>
+        <div>
+          <label
+            htmlFor="specialty"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Specialty
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              name="specialty"
+              id="specialty"
+              value={user.specialty}
+              onChange={handleChange}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-2">
+          <label
+            htmlFor="location"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Details
+          </label>
+          <div className="mt-1">
+            <textarea
+              type="text"
+              name="details"
+              id="details"
+              value={user.details}
+              onChange={handleChange}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              rows="4"
+            />
+          </div>
+        </div>
+        </>
+        )}
+
       </div>
 
       {error && (
@@ -278,6 +334,10 @@ ProfileEditor.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
+    specialty: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    is_handyman: PropTypes.number.isRequired,
+    
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleProfileSubmit: PropTypes.func.isRequired,
@@ -294,6 +354,8 @@ const Profile = () => {
     last_name: "",
     location: "",
     is_handyman: -1, // -1 indicates role not selected
+    details: "",
+    specialty: ""
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

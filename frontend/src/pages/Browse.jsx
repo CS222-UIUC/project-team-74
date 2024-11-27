@@ -106,7 +106,7 @@ function Browse() {
               )}
             </h2>
             <p className="text-center font-semibold text-muted text-[#525252]">
-              {selectedHandyman.position}
+              {selectedHandyman.specialty}
             </p>
             <p className="text-center px-8 text-sm text-gray-700 mt-4">
               {selectedHandyman.details}
