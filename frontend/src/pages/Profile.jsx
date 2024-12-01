@@ -161,7 +161,7 @@ const ProfileEditor = ({
               id="username"
               value={user.username}
               disabled
-              className="block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 cursor-not-allowed"
+              className="block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 cursor-not-allowed px-2 py-1.5"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ const ProfileEditor = ({
               value={user.email}
               onChange={handleChange}
               required
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
             />
           </div>
         </div>
@@ -200,7 +200,7 @@ const ProfileEditor = ({
               id="first_name"
               value={user.first_name}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
             />
           </div>
         </div>
@@ -219,7 +219,7 @@ const ProfileEditor = ({
               id="last_name"
               value={user.last_name}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
             />
           </div>
         </div>
@@ -238,7 +238,7 @@ const ProfileEditor = ({
               id="location"
               value={user.location}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
             />
           </div>
         </div>
@@ -352,7 +352,7 @@ const Profile = () => {
     e.preventDefault();
     setUpdating(true);
     try {
-      await axios.put("http://127.0.0.1:8000/api/user/", user, {
+      await axios.put("http://127.0.0.1:8000/api/profile/", user, {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
         },

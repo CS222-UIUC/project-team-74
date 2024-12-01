@@ -1,6 +1,6 @@
 .section-homepage {
     display: flex;
-    height:700px;
+    height:750px;
     color: black;
     background-color:  rgb(247, 248, 233);
     align-items: center;
@@ -57,7 +57,7 @@
 }
 
 #repair-homepage {
-    height: 330px;
+    height: 400px;
     box-shadow: -10px 10px 0px #c1b482;
     flex-shrink: 1;
     object-fit: cover;
@@ -74,8 +74,10 @@
     justify-content: center;
 }
 
-#repair-reverse-homepage {
-    height: 550px;
+.repair-reverse-homepage {
+    height: 500px;
+    width: 1100px;
+  
     box-shadow: 10px 10px 0px #8F8570;
 }
 
@@ -152,3 +154,19 @@
     background-color: #d1d1d1;
     color:#8a7e5d;
 }
+.hidden{
+    opacity:0;
+    filter:blur(10px);
+    transform: translateX(-100%);
+    transition: all 1.5s;
+
+  }
+  
+  .show{
+    opacity: 1;
+    filter:blur(0px);
+    transform: translateX(0);
+    transition: all 1.5s;
+  }
+
+
