@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './Job_Post_Form.css';
 import { MdOutlineTitle, MdSubtitles } from "react-icons/md";
