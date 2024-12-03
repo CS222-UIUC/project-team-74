@@ -46,9 +46,8 @@ const Job_Post_Form = () => {
         }
     };
 
-    const handleLocationSelect = (coords, location) => {
+    const handleLocationSelect = (coords) => {
         setCoordinates(coords);
-        setLocation(location);
     };
 
     return (

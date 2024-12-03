@@ -6,7 +6,7 @@ function App({ children }) {
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-      <main style={{ flex: 1, overflow: 'auto' }}>{children}</main>
+      <main className="flex-1 overflow-y-auto">{children}</main>
     </div>
   );
 }

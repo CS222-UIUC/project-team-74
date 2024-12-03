@@ -4,7 +4,6 @@ import Map, {
   Marker,
   NavigationControl,
   FullscreenControl,
-  ScaleControl,
   GeolocateControl,
 } from "react-map-gl/maplibre";
 import Pin from "./pin";
