@@ -93,7 +93,7 @@ function Browse() {
               src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar11.jpg"
               alt={selectedHandyman.first_name}
             />
-            <h2 className="text-xl font-bold text-center text-[#a67905] mb-2">
+            <h2 className="text-xl font-bold text-center text-[#a67905] mb-1">
               {selectedHandyman.first_name} {selectedHandyman.last_name}
               {selectedHandyman.rating != null ? (
                 <>
@@ -105,6 +105,9 @@ function Browse() {
                 ""
               )}
             </h2>
+            <p className="text-center font-semibold text-muted text-[#a67905] mb-2">
+              User ID: {selectedHandyman.id}
+            </p>
             <p className="text-center font-semibold text-muted text-[#525252]">
               {selectedHandyman.specialty}
             </p>

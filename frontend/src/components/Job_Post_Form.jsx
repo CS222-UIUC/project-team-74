@@ -10,29 +10,23 @@ const Job_Post_Form = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [coordinates, setCoordinates] = useState(null);
-
-    const getCsrfToken = () => {
-        const cookieValue = document.cookie.split('; ')
-            .find(row => row.startsWith('csrftoken='))
-            ?.split('=')[1];
-        return cookieValue || '';
-    };
+    const [location, setLocation] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Posting job:', title, description, price, coordinates);
+        console.log('Posting job:', title, description, price, coordinates, location);
     
         try {
-            const csrfToken = getCsrfToken();
+            const token = localStorage.getItem('token');
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/jobs/',
-                { title, description, price, coordinates },
+                { title, description, price, coordinates, location:"Chicago" },
                 {
                     headers: {
-                        'X-CSRFToken': csrfToken,
+                        'Authorization': `Token ${token}`,
+                        'Content-Type': 'application/json',
                     },
-                    withCredentials: true,
                 }
             );
             
@@ -43,6 +37,7 @@ const Job_Post_Form = () => {
                 setDescription('');
                 setPrice('');
                 setCoordinates(null);
+                setLocation('');
             } else {
                 console.error('Job not created:', response.status, response.data);
             }
@@ -51,8 +46,9 @@ const Job_Post_Form = () => {
         }
     };
 
-    const handleLocationSelect = (coords) => {
+    const handleLocationSelect = (coords, location) => {
         setCoordinates(coords);
+        setLocation(location);
     };
 
     return (
