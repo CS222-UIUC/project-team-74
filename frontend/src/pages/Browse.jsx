@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { IoStarSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Browse() {
   const [selectedHandyman, setSelectedHandyman] = useState(null);
@@ -94,11 +95,21 @@ function Browse() {
               src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar11.jpg"
               alt={selectedHandyman.first_name}
             />
-            <h2 className="text-xl font-bold text-center text-[#a67905] mb-1">
+            <h2 className="text-xl font-bold text-center text-[#a67905]">
               {selectedHandyman.first_name} {selectedHandyman.last_name}
-              {selectedHandyman.rating != null ? (
+            </h2>
+            <h2 className="text-xl font-bold text-center text-[#a67905] mb-2">
+              {selectedHandyman.average_rating != null ? (
                 <>
-                  <span>{` (${selectedHandyman.rating}/10)`}</span>
+                  <Link
+                    to={{
+                      pathname: "/review-comments",
+                      search: `?id=${selectedHandyman.id}`,
+                    }}
+                  >
+                    <span className='font-semibold'>{` (${selectedHandyman.average_rating}/10)`}</span>
+                  </Link>
+
                   <IoStarSharp className="inline-block text-yellow-500 text-2xl ml-1 pb-1" />
                   {/* Star Icon */}
                 </>
@@ -106,7 +117,7 @@ function Browse() {
                 ""
               )}
             </h2>
-            <p className="text-center font-semibold text-muted text-[#a67905] mb-2">
+            <p className="text-center font-semibold text-muted text-[#a67905] mb-3">
               User ID: {selectedHandyman.id}
             </p>
             <p className="text-center font-semibold text-muted text-[#525252]">

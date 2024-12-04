@@ -14,6 +14,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import PostedJob from "./components/PostedJob.jsx";
 import Profile from "./pages/Profile";
+import ReviewComment from "./pages/ReviewComment.jsx";
 import MapBasic from "./maps/MapBasic.jsx";
 import ReviewForm from "./components/Review_Form.jsx";
 
@@ -38,6 +39,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/profile" element={<Profile />} />
           <Route path="/mapbasic" element={<MapBasic />} />
           <Route path="/review" element={<ReviewForm />} />
+          <Route path="/review-comments" element={<ReviewComment />} />
         </Routes>
       </App>
     </Router>

@@ -83,10 +83,19 @@ class HandymenViewSet(viewsets.ViewSet):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
+
     def list(self, request):
         users = User.objects.filter(is_handyman=True)
         serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+
+        handymen_with_avg_rating = []
+        for user, user_data in zip(users, serializer.data):
+            avg_rating = Review.objects.filter(reviewed_user=user).aggregate(Avg('rating'))['rating__avg']
+            user_data['average_rating'] = avg_rating if avg_rating is not None else None
+            handymen_with_avg_rating.append(user_data)
+
+        return Response(handymen_with_avg_rating)
+
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
@@ -96,7 +105,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(written_by=self.request.user)
 
-    # ex http://127.0.0.1:8000/api/reviews/averageRating/?id=10
     @action(detail=False, methods=['get'], url_path='averageRating')
     def averageRating(self, request):
         id = request.GET.get('id')
@@ -108,7 +116,12 @@ class ReviewViewSet(viewsets.ModelViewSet):
         
         if reviews.exists():
             avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-            return Response({'id': int(id), 'average_rating': avg_rating})
+            review_data = reviews.values('review_id', 'written_by', 'reviewed_user', 'rating', 'comment')
+            return Response({
+                'id': int(id),
+                'average_rating': avg_rating,
+                'reviews': list(review_data)
+            })
         else:
             return Response({'message': 'No reviews found for this user'}, status=404)
 
