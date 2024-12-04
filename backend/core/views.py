@@ -1,5 +1,5 @@
 from rest_framework import viewsets, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -13,6 +13,7 @@ from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from django.http import JsonResponse
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from django.db.models import Avg
 
 User = get_user_model()
 
@@ -83,9 +84,9 @@ class HandymenViewSet(viewsets.ViewSet):
     serializer_class = UserSerializer
 
     def list(self, request):
-        users = User.objects.filter(is_handyman=True)  # Retrieve all users
-        serializer = UserSerializer(users, many=True)  # Serialize the users
-        return Response(serializer.data)  # Return the serialized data as a response
+        users = User.objects.filter(is_handyman=True)
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
@@ -94,6 +95,22 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(written_by=self.request.user)
+
+    # ex http://127.0.0.1:8000/api/reviews/averageRating/?pk=10
+    @action(detail=False, methods=['get'], url_path='averageRating')
+    def averageRating(self, request):
+        pk = request.GET.get('pk')
+
+        if pk is None:
+            return Response({'error': 'No reviewed user specified'}, status=400)
+
+        reviews = Review.objects.filter(reviewed_user=pk)
+        
+        if reviews.exists():
+            avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+            return Response({'average_rating': avg_rating})
+        else:
+            return Response({'message': 'No reviews found for this user'}, status=404)
 
 class WorkHistoryViewSet(viewsets.ModelViewSet):
     queryset = WorkHistory.objects.all()
