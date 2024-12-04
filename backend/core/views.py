@@ -96,19 +96,19 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(written_by=self.request.user)
 
-    # ex http://127.0.0.1:8000/api/reviews/averageRating/?pk=10
+    # ex http://127.0.0.1:8000/api/reviews/averageRating/?id=10
     @action(detail=False, methods=['get'], url_path='averageRating')
     def averageRating(self, request):
-        pk = request.GET.get('pk')
+        id = request.GET.get('id')
 
-        if pk is None:
+        if id is None:
             return Response({'error': 'No reviewed user specified'}, status=400)
 
-        reviews = Review.objects.filter(reviewed_user=pk)
+        reviews = Review.objects.filter(reviewed_user=id)
         
         if reviews.exists():
             avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-            return Response({'average_rating': avg_rating})
+            return Response({'id': int(id), 'average_rating': avg_rating})
         else:
             return Response({'message': 'No reviews found for this user'}, status=404)
 
