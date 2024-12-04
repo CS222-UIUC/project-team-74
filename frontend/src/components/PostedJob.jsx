@@ -12,6 +12,7 @@ const PostedJob = () => {
       .get("http://127.0.0.1:8000/job-postings/jobs/")
       .then((response) => {
         setJobs(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the job postings!", error);

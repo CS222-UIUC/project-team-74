@@ -21,7 +21,7 @@ const Job_Post_Form = () => {
             const token = localStorage.getItem('token');
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/jobs/',
-                { title, description, price, coordinates, location:"Chicago" },
+                { title, description, price, coordinates, location },
                 {
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -46,8 +46,9 @@ const Job_Post_Form = () => {
         }
     };
 
-    const handleLocationSelect = (coords) => {
+    const handleLocationSelect = (coords, address) => {
         setCoordinates(coords);
+        setLocation(address);
     };
 
     return (
