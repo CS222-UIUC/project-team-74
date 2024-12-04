@@ -11,7 +11,7 @@ import Map, {
 
 // import ControlPanel from "./control-panel";
 import Pin from "./pin";
-import CAMPUS from "./campus.json";
+// import CAMPUS from "./campus.json";
 
 function MapBasic() {
   const [popupInfo, setPopupInfo] = useState(null);
@@ -81,16 +81,17 @@ function MapBasic() {
             latitude={Number(popupInfo.coordinates.latitude)}
             onClose={() => setPopupInfo(null)}
           >
-            <div>
+            <div className="text-black">
               {popupInfo.title} | {popupInfo.location}
             </div>
-            <div>
+            <div className="text-black">
               Price: ${popupInfo.price}
             </div>
-            <div>
+            <div className="text-black">
               Request by: {popupInfo.user.first_name ? popupInfo.user.first_name + " " + popupInfo.user.last_name : "N/A"}
             </div>
             <a
+              className="text-blue-500"
               target="_new"
               href={popupInfo.user.email ? `mailto:${popupInfo.user.email}` : "javascript:void(0)"}
             >
