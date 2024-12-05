@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import JobPostingViewSet, job_posting_list, RegisterUser, ProfileView, ReviewViewSet, WorkHistoryViewSet
+from .views import JobPostingViewSet, job_posting_list, RegisterUser, ProfileView, ReviewViewSet, WorkHistoryViewSet, HandymenViewSet
 from rest_framework.authtoken import views
 
 router = DefaultRouter()
 router.register(r'jobs', JobPostingViewSet)
 router.register(r'reviews', ReviewViewSet)
 router.register(r'work-history', WorkHistoryViewSet)
+router.register(r'handymen', HandymenViewSet, basename='handymen')
 
 urlpatterns = [
     path('', include(router.urls)),

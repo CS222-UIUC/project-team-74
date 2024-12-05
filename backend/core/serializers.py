@@ -4,15 +4,11 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class JobPostingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = JobPosting
-        fields = ['id', 'title', 'description', 'location', 'price', 'coordinates', 'created_at', 'status', 'user']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'location', 'is_handyman']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'location', 'is_handyman', 'details', 'specialty']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -30,6 +26,13 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
     
+
+class JobPostingSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = JobPosting
+        fields = ['id', 'title', 'description', 'location', 'price', 'coordinates', 'created_at', 'status', 'user']
+
 class WorkHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkHistory
