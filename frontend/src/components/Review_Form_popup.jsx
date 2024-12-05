@@ -152,7 +152,7 @@ function ReviewFormPop({ reviewedUser }) {
 } 
 
 ReviewFormPop.propTypes = {
-    reviewedUser: PropTypes.string.isRequired,  // Validate reviewedUser prop as a required string
+    reviewedUser: PropTypes.string.isRequired,  
 };
 
 export default ReviewFormPop;

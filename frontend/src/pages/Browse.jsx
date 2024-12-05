@@ -40,7 +40,7 @@ function Browse() {
 
   
     return () => observer.disconnect();
-  }, [handymen,selectedHandyman]);
+  }, [handymen,selectedHandyman,searchTerm]);
 
 
 
