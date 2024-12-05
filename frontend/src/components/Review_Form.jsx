@@ -102,7 +102,7 @@ function ReviewForm() {
                     min="0"
                     max="10"
                     required
-                    className ="pl-10 py-2 w-[450px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    className ="pl-10 py-2 w-[450px]  border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                 />
                 <FaStar  className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
 

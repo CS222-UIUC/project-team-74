@@ -4,7 +4,7 @@ import './Job_Post_Form.css';  // Reusing the same CSS for styling consistency
 import { FaStar ,FaCommentAlt,FaRegIdCard  } from "react-icons/fa";
 
 
-function ReviewFromPop({ reviewedUser }) {
+function ReviewFormPop({ reviewedUser }) {
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
     const [writtenBy, setWrittenBy] = useState(''); // ID of the logged-in user
@@ -58,7 +58,7 @@ function ReviewFromPop({ reviewedUser }) {
                 alert('Review submitted successfully!');
                 setRating('');
                 setComment('');
-                setReviewedUser('');
+             
             }
         } catch (error) {
             console.error('Error submitting review:', error);
@@ -129,7 +129,7 @@ function ReviewFromPop({ reviewedUser }) {
               <input
                 type="text"
                 value={reviewedUser}
-                onChange={(e) => setReviewedUser(e.target.value)}
+               
                 placeholder="Reviewed User ID"
                 className="w-full px-4 py-2 border bg-gray-100 text-gray-400 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
@@ -149,8 +149,5 @@ function ReviewFromPop({ reviewedUser }) {
       </div>
     );
 } 
-ReviewFromPop.propTypes = {
-    reviewedUser: PropTypes.string.isRequired, // Assuming it's a string. If it's a number, change it accordingly.
-  };
 
-export default ReviewFromPop;
+export default ReviewFormPop;
