@@ -4,10 +4,13 @@ import PropTypes from "prop-types";
 import { IoStarSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
+import ReviewFormPop from "../components/Review_Form_popup";
+
 function Browse() {
   const [selectedHandyman, setSelectedHandyman] = useState(null);
   const [handymen, setHandymen] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isReviewPopupVisible, setIsReviewPopupVisible] = useState(false);
 
   useEffect(() => {
     axios
@@ -21,12 +24,29 @@ function Browse() {
       });
   }, []);
 
+
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/job-postings/handymen/")
+      .then((response) => {
+        setHandymen(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching handymen:", error);
+      });
+  }, []);
+
+
+
   // Filter handymen based on the search term
   const filteredHandymen = handymen.filter(
     (handyman) =>
       handyman.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       handyman.specialty.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+
 
   return (
     <>
@@ -137,14 +157,54 @@ function Browse() {
               >
                 Contact Now
               </a>
+              <button
+                className="bg-yellow-600 rounded-md px-5 py-2 text-white mt-6 hover:bg-yellow-700 transition-colors duration-100 ease-in-out mx-auto block"
+                onClick={() => setIsReviewPopupVisible(true)}
+               
+              >
+                Review
+              </button>
             </div>
           </div>
         </div>
       )}
+
+{/* Review Popup */}
+{isReviewPopupVisible && selectedHandyman && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsReviewPopupVisible(false);
+            }
+          }}
+        >
+          <div className="bg-gray p-6 rounded-lg shadow-lg max-w-md w-full relative">
+            <button
+              className="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-600"
+              onClick={() => setIsReviewPopupVisible(false)}
+            >
+              &times;
+            </button>
+            <h2 className="text-xl font-bold mb-4 ">
+              Review for {selectedHandyman.first_name} {selectedHandyman.last_name}
+            </h2>
+            <ReviewFormPop
+              reviewedUser={selectedHandyman.id} 
+              
+             
+            />
+          </div>
+        </div>
+      )}
+
     </>
   );
 }
 
+     
+      
+  
 function Handyman({ imgSrc, first_name, last_name, specialty, onClick }) {
   return (
     <button

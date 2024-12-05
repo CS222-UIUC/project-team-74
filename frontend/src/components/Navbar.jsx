@@ -71,6 +71,7 @@ function Navbar() {
               <Link to="/post" className="element">
                 POST A REQUEST
               </Link>
+              
               <Link to="/review" className="element">
                 WRITE A REVIEW
               </Link>
@@ -80,6 +81,7 @@ function Navbar() {
               <Link to="/login" className="element">
                 POST A REQUEST
               </Link>
+              
               <Link to="/login" className="element">
                 WRITE A REVIEW
               </Link>
