@@ -7,7 +7,6 @@ import { FaStar ,FaCommentAlt,FaRegIdCard  } from "react-icons/fa";
 function ReviewFromPop({ reviewedUser }) {
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
-    //const [reviewedUser, setReviewedUser] = useState(''); // ID of the user being reviewed
     const [writtenBy, setWrittenBy] = useState(''); // ID of the logged-in user
 
     useEffect(() => {

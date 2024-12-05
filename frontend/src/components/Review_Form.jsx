@@ -4,7 +4,7 @@ import './Job_Post_Form.css';  // Reusing the same CSS for styling consistency
 import { FaStar ,FaCommentAlt,FaRegIdCard  } from "react-icons/fa";
 
 
-function ReviewForm({  }) {
+function ReviewForm() {
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
     const [reviewedUser, setReviewedUser] = useState(''); // ID of the user being reviewed
