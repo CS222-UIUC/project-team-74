@@ -31,6 +31,8 @@ class JobPosting(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default='open')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    coordinates = models.JSONField(null=True, blank=True)
     
     # Link to the custom User model with on_delete set to SET_NULL for anonymous user handling
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='job_postings')

@@ -12,12 +12,15 @@ const pinStyle = {
 
 function Pin({ price = -1 }) {
   return (
-    // <svg height={size} viewBox="0 0 24 24" style={pinStyle}>
-    //   <path d={ICON} />
-    // </svg>
-    <div className="border-solid border-2 rounded-full px-2 bg-white bg-opacity-95 shadow">
-      {price !== -1 && <p className="text-black text-sm font-nunito">{`$${price}`}</p>}
-    </div>
+    price === -1 ? (
+      <svg height={24} viewBox="0 0 24 24" style={pinStyle}>
+        <path d={ICON} />
+      </svg>
+    ) : (
+      <div className="border-solid border-2 rounded-full px-2 bg-white bg-opacity-95 shadow">
+        <p className="text-black text-sm font-nunito">{`$${price}`}</p>
+      </div>
+    )
   );
 }
 
