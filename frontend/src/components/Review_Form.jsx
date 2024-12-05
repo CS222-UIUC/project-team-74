@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Job_Post_Form.css';  // Reusing the same CSS for styling consistency
 import { FaStar ,FaCommentAlt,FaRegIdCard  } from "react-icons/fa";
+import React from 'react';
 
 function ReviewForm({  }) {
     const [rating, setRating] = useState('');
