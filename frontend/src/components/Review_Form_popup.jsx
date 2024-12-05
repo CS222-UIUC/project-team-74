@@ -148,6 +148,9 @@ function ReviewFromPop({ reviewedUser }) {
         </form>
       </div>
     );
-}
+} 
+ReviewFromPop.propTypes = {
+    reviewedUser: PropTypes.string.isRequired, // Assuming it's a string. If it's a number, change it accordingly.
+  };
 
 export default ReviewFromPop;
