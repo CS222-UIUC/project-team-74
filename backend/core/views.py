@@ -14,6 +14,7 @@ from django.db import IntegrityError
 from django.http import JsonResponse
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from django.db.models import Avg
+from rest_framework.parsers import MultiPartParser, FormParser
 
 User = get_user_model()
 
@@ -64,11 +65,12 @@ class RegisterUser(APIView):
 # Profile View
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def get(self, request):
         user = request.user
        
-        serializer = UserSerializer(user)
+        serializer = UserSerializer(user, context={'request': request})
         return Response(serializer.data)
 
     def put(self, request):

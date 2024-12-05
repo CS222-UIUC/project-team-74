@@ -91,7 +91,23 @@ RolePicker.propTypes = {
 const ProfileDisplay = ({ user, onEdit }) => (
   <div className="mx-auto mt-16 max-w-4xl">
     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-8">
-      <h1 className="text-4xl text-indigo-600 font-bold mb-6">Your Profile{user.is_handyman === 1 ? ": Handyman" : ": Requester"}</h1>
+      <h1 className="text-4xl text-indigo-600 font-bold mb-6">
+        Your Profile {user.is_handyman === 1 ? ": Handyman" : ": Requester"}
+      </h1>
+
+      {/* Profile Image Display */}
+      <div className="mb-6 flex justify-center">
+        <img
+          src={
+            user.profile_image
+              ? user.profile_image
+              : "/media/default_images/default_profile.png"
+          }
+          alt="Profile"
+          className="w-32 h-32 rounded-full mx-auto"
+        />
+      </div>
+
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
         <div>
           <h3 className="text-sm font-medium text-gray-700">Username</h3>
@@ -113,17 +129,18 @@ const ProfileDisplay = ({ user, onEdit }) => (
           <h3 className="text-sm font-medium text-gray-700">Location</h3>
           <p className="mt-1 text-sm text-gray-900">{user.location}</p>
         </div>
-        {user.is_handyman === 1 && (<>
-        <div>
-          <h3 className="text-sm font-medium text-gray-700">Specialty</h3>
-          <p className="mt-1 text-sm text-gray-900">{user.specialty}</p>
-        </div>
-        <div className="sm:col-span-2">
-          <h3 className="text-sm font-medium text-gray-700">Details</h3>
-          <p className="mt-1 text-sm text-gray-900">{user.details}</p>
-        </div>
-        </>)}
-
+        {user.is_handyman === 1 && (
+          <>
+            <div>
+              <h3 className="text-sm font-medium text-gray-700">Specialty</h3>
+              <p className="mt-1 text-sm text-gray-900">{user.specialty}</p>
+            </div>
+            <div className="sm:col-span-2">
+              <h3 className="text-sm font-medium text-gray-700">Details</h3>
+              <p className="mt-1 text-sm text-gray-900">{user.details}</p>
+            </div>
+          </>
+        )}
       </div>
       <button
         onClick={onEdit}
@@ -142,9 +159,10 @@ ProfileDisplay.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    specialty: PropTypes.string.isRequired,
-    details: PropTypes.string.isRequired,
-    is_handyman: PropTypes.number.isRequired
+    specialty: PropTypes.string,
+    details: PropTypes.string,
+    is_handyman: PropTypes.number.isRequired,
+    profile_image: PropTypes.string,
   }).isRequired,
   onEdit: PropTypes.func.isRequired,
 };
@@ -154,12 +172,18 @@ const ProfileEditor = ({
   handleChange,
   handleProfileSubmit,
   handleCancel,
+  handleImageChange,
   updating,
   error,
 }) => (
   <div className="mx-auto mt-16 max-w-4xl">
-    <form onSubmit={handleProfileSubmit} className="bg-white shadow overflow-hidden sm:rounded-lg p-8 space-y-8">
-      <h1 className="text-4xl text-indigo-600 font-bold mb-6">Edit Your Profile</h1>
+    <form
+      onSubmit={handleProfileSubmit}
+      className="bg-white shadow overflow-hidden sm:rounded-lg p-8 space-y-8"
+    >
+      <h1 className="text-4xl text-indigo-600 font-bold mb-6">
+        Edit Your Profile
+      </h1>
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
         <div>
           <label
@@ -196,6 +220,25 @@ const ProfileEditor = ({
               onChange={handleChange}
               required
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+            />
+          </div>
+        </div>
+
+        {/* Profile Image Upload Field */}
+        <div>
+          <label
+            htmlFor="profile_image"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Profile Image
+          </label>
+          <div className="mt-1">
+            <input
+              type="file"
+              name="profile_image"
+              id="profile_image"
+              onChange={handleImageChange}
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
             />
           </div>
         </div>
@@ -256,53 +299,52 @@ const ProfileEditor = ({
             />
           </div>
         </div>
-        { (user.is_handyman === 1) && ( <>
-        <div>
-          <label
-            htmlFor="specialty"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Specialty
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="specialty"
-              id="specialty"
-              value={user.specialty}
-              onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
-            />
-          </div>
-        </div>
 
-        <div className="sm:col-span-2">
-          <label
-            htmlFor="location"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Details
-          </label>
-          <div className="mt-1">
-            <textarea
-              type="text"
-              name="details"
-              id="details"
-              value={user.details}
-              onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
-              rows="4"
-            />
-          </div>
-        </div>
-        </>
+        {user.is_handyman === 1 && (
+          <>
+            <div>
+              <label
+                htmlFor="specialty"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Specialty
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="specialty"
+                  id="specialty"
+                  value={user.specialty}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="details"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Details
+              </label>
+              <div className="mt-1">
+                <textarea
+                  type="text"
+                  name="details"
+                  id="details"
+                  value={user.details}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+                  rows="4"
+                />
+              </div>
+            </div>
+          </>
         )}
-
       </div>
 
-      {error && (
-        <div className="text-red-500 text-sm">{error}</div>
-      )}
+      {error && <div className="text-red-500 text-sm">{error}</div>}
 
       <div className="flex justify-end space-x-4">
         <button
@@ -334,14 +376,15 @@ ProfileEditor.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    specialty: PropTypes.string.isRequired,
-    details: PropTypes.string.isRequired,
+    specialty: PropTypes.string,
+    details: PropTypes.string,
     is_handyman: PropTypes.number.isRequired,
-    
+    profile_image: PropTypes.string,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleProfileSubmit: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired,
   updating: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
@@ -357,6 +400,7 @@ const Profile = () => {
     details: "",
     specialty: ""
   });
+  const [profileImageFile, setProfileImageFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [updating, setUpdating] = useState(false);
@@ -410,23 +454,58 @@ const Profile = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    setProfileImageFile(e.target.files[0]);
+  };
+
+
+  
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     setUpdating(true);
     try {
-      await axios.put("http://127.0.0.1:8000/api/profile/", user, {
+      const formData = new FormData();
+
+      // Only add fields to FormData if they have a non-empty value
+      if (user.email) {
+        formData.append('email', user.email);
+      }
+      if (user.first_name) {
+        formData.append('first_name', user.first_name);
+      }
+      if (user.last_name) {
+        formData.append('last_name', user.last_name);
+      }
+      if (user.location) {
+        formData.append('location', user.location);
+      }
+      if (user.specialty) {
+        formData.append('specialty', user.specialty);
+      }
+      if (user.details) {
+        formData.append('details', user.details);
+      }
+      if (profileImageFile) {
+        formData.append('profile_image', profileImageFile);
+      }
+
+      await axios.put("http://127.0.0.1:8000/api/profile/", formData, {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
         },
       });
+
       alert("Profile updated successfully");
       setEditMode(false);
-      setUpdating(false);
+      window.location.reload();
     } catch (error) {
       setError("Failed to update profile");
+    } finally {
       setUpdating(false);
     }
   };
+
 
   const handleEditToggle = () => {
     setEditMode(true);
@@ -499,6 +578,7 @@ const Profile = () => {
           handleChange={handleChange}
           handleProfileSubmit={handleProfileSubmit}
           handleCancel={handleCancelEdit}
+          handleImageChange={handleImageChange}
           updating={updating}
           error={error}
         />
