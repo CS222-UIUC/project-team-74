@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -90,7 +91,7 @@ RolePicker.propTypes = {
 
 const ProfileDisplay = ({ user, onEdit }) => (
   <div className="mx-auto mt-16 max-w-4xl">
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-8">
+    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-8 hidden3">
       <h1 className="text-4xl text-indigo-600 font-bold mb-6">Your Profile{user.is_handyman === 1 ? ": Handyman" : ": Requester"}</h1>
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
         <div>
@@ -379,8 +380,46 @@ const Profile = () => {
       }
     };
 
+
+
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show3');
+        } else {
+          entry.target.classList.remove('show3');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden3'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, [user,loading]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show4');
+        } else {
+          entry.target.classList.remove('show4');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden4'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, [user,loading]);
 
   const handleRoleSelect = async (role) => {
     setUpdating(true);
@@ -428,6 +467,7 @@ const Profile = () => {
     }
   };
 
+
   const handleEditToggle = () => {
     setEditMode(true);
   };
@@ -453,8 +493,10 @@ const Profile = () => {
     );
   }
 
+
+
   return (
-    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 min-h-screen">
+    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 min-h-screen hidden3">
       {/* Background Gradient */}
       <div
         aria-hidden="true"
@@ -465,12 +507,12 @@ const Profile = () => {
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
           }}
-          className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+          className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 hidden4 "
         />
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-4xl text-center">
+      <div className="mx-auto max-w-4xl text-center hidden3  "  style={{ backgroundColor: 'transparent' }}>
         <h2 className="text-base/7 font-semibold text-indigo-600">
           {user.is_handyman === -1 ? "Choose Your Role" : "Your Profile"}
         </h2>
@@ -482,7 +524,7 @@ const Profile = () => {
             : "Manage Your Profile"}
         </p>
       </div>
-      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8">
+      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8 hidden3"  style={{ backgroundColor: 'transparent' }}>
         {user.is_handyman === -1
           ? "Whether you’re looking to hire a skilled handyman or offer your services, we provide the best tools to support you."
           : editMode

@@ -4,8 +4,10 @@ import './Job_Post_Form.css';
 import { MdOutlineTitle, MdSubtitles } from "react-icons/md";
 import { IoIosPricetag } from "react-icons/io";
 import MapPost from '../maps/MapPost';
+import { useEffect } from 'react';
 
 const Job_Post_Form = () => {
+    
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -51,8 +53,26 @@ const Job_Post_Form = () => {
         setLocation(address);
     };
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show2');
+            } else {
+              entry.target.classList.remove('show2');
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll('.hidden2'); 
+        hiddenElements.forEach((el) => observer.observe(el));
+    
+      
+        return () => observer.disconnect();
+      }, []);
+
     return (
-        <div className="job-post-form-container">
+        <div className="job-post-form-container hidden2">
             <h1 className="font-roboto font-bold text-3xl text-green-700 pb-5">Post a Job Request</h1>
             <form onSubmit={handleSubmit} className="job-post-form flex flex-col h-full ">
                 <h1 className="font-roboto font-bold text-xl text-green-700">Job Title</h1>

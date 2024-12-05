@@ -6,7 +6,7 @@
     padding: 20px;
     height: calc(100vh - 64px); /* Adjust height to account for the navbar */
     width: 100%;
-    height: 170%;
+    
     background-color: rgb(247, 248, 233);
     color: black;
 }
@@ -84,3 +84,31 @@
     transform: translateX(0);
     transition: all 0.5s;
   }
+
+  .hidden3{
+    opacity:0;
+    filter:blur(10px);
+    transition: all 1s;
+
+  }
+
+  .show3{
+    opacity: 0.5;
+    filter:blur(0px);
+    transform: translateX(0);
+    transition: all 1s;
+  }
+  
+
+  .hidden4 {
+    opacity: 0;
+    transform: rotate(90deg);  /* Initially no rotation */
+    transition: all 2s ease-in-out; /* Smooth transition for all properties */
+  }
+  
+  .show4 {
+    opacity: 1;  /* Fully visible */
+    transform: rotate(0deg);  /* Rotate by 360 degrees */
+    transition: all 2s ease-in-out; /* Smooth transition for all properties */
+  }
+  

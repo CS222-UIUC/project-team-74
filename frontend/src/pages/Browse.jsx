@@ -24,6 +24,24 @@ function Browse() {
       });
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show2');
+        } else {
+          entry.target.classList.remove('show2');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden2'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, [handymen,selectedHandyman]);
+
 
 
   useEffect(() => {
@@ -55,17 +73,17 @@ function Browse() {
           <div className="flex-auto block py-8 px-9">
             <div>
               <div className="mb-9 text-center">
-                <h1 className="mb-2 text-[4.25rem] font-bold text-[#525252] font-fraunces">
+                <h1 className="mb-2 text-[4.25rem] font-bold text-[#525252] font-fraunces hidden2">
                   Handymen
                 </h1>
-                <span className="text-[1.15rem] font-medium text-muted text-[#3f3f46] font-jost">
+                <span className="text-[1.15rem] font-medium text-muted text-[#3f3f46] font-jost hidden2">
                   Browse through a list of skilled handymen ready to assist with
                   your maintenance needs and find the perfect match for you!
                 </span>
               </div>
 
               {/* Search Bar */}
-              <div className="mb-6 text-center">
+              <div className="mb-6 text-center hidden2">
                 <input
                   type="text"
                   placeholder="Search by name or specialty"
@@ -96,14 +114,14 @@ function Browse() {
       {/* Popup Modal */}
       {selectedHandyman && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50 hidden2 "
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setSelectedHandyman(null);
             }
           }}
         >
-          <div className="bg-white p-12 rounded-lg shadow-lg max-w-md w-full relative">
+          <div className="bg-white p-12 rounded-lg shadow-lg max-w-md w-full relative ">
             <button
               className="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-600"
               onClick={() => setSelectedHandyman(null)}
@@ -157,6 +175,7 @@ function Browse() {
               >
                 Contact Now
               </a>
+            
               <button
                 className="bg-yellow-600 rounded-md px-5 py-2 text-white mt-6 hover:bg-yellow-700 transition-colors duration-100 ease-in-out mx-auto block"
                 onClick={() => setIsReviewPopupVisible(true)}
@@ -167,6 +186,7 @@ function Browse() {
             </div>
           </div>
         </div>
+       
       )}
 
 {/* Review Popup */}
@@ -179,7 +199,7 @@ function Browse() {
             }
           }}
         >
-          <div className="bg-gray p-6 rounded-lg shadow-lg max-w-md w-full relative">
+          <div className="bg-gray p-6 rounded-lg shadow-lg max-w-md w-full relative hidden2">
             <button
               className="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-600"
               onClick={() => setIsReviewPopupVisible(false)}
@@ -209,9 +229,9 @@ function Handyman({ imgSrc, first_name, last_name, specialty, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="flex flex-col items-center justify-center mr-5 text-center text-[#525252] mb-11 lg:mr-16 transform hover:scale-105 transition-transform duration-200 ease-in-out"
+      className="flex flex-col items-center justify-center mr-5 text-center text-[#525252] mb-11 lg:mr-16 transform hover:scale-105 transition-transform duration-500 ease-in-out "
     >
-      <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+      <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem] hidden2">
         <img
           className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]"
           src={imgSrc}
