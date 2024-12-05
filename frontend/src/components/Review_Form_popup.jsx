@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Job_Post_Form.css';  // Reusing the same CSS for styling consistency
+import PropTypes from 'prop-types';  
 import { FaStar ,FaCommentAlt,FaRegIdCard  } from "react-icons/fa";
 
 
@@ -149,5 +150,9 @@ function ReviewFormPop({ reviewedUser }) {
       </div>
     );
 } 
+
+ReviewFormPop.propTypes = {
+    reviewedUser: PropTypes.string.isRequired,  // Validate reviewedUser prop as a required string
+};
 
 export default ReviewFormPop;
