@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./PostedJob.css";
+import { MapBasic } from "../maps/MapBasic"; // Import MapBasic component
 
 const PostedJob = () => {
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [view, setView] = useState("list"); // State to toggle between views
 
   useEffect(() => {
     axios
@@ -34,7 +36,7 @@ const PostedJob = () => {
     hiddenElements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [jobs, searchTerm]);
+  }, [jobs, searchTerm, view]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -51,7 +53,7 @@ const PostedJob = () => {
     hiddenElements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [jobs, searchTerm]);
+  }, [jobs, searchTerm, view]); // Add view to dependencies
 
   // Filter job based on the search term
   const filteredJob = jobs.filter(
@@ -67,8 +69,8 @@ const PostedJob = () => {
           Job Postings
         </h1>
 
-        {/* Search Bar */}
-        <div className="mb-6 text-center">
+        {/* Search Bar and View Selector */}
+        <div className="mb-6 text-center flex justify-between items-center">
           <input
             type="text"
             placeholder="Search by job title/location"
@@ -76,28 +78,40 @@ const PostedJob = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <button
+            className="ml-4 px-4 py-2 border rounded-lg shadow-sm bg-green-700 text-white font-fraunces"
+            onClick={() => setView(view === "list" ? "map" : "list")}
+          >
+            {view === "list" ? "Map View" : "List View"}
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 pl-10 pr-10 pb-20">
-          {filteredJob.map((job) => (
-            <button
-              key={job.id}
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 hidden3" // hidden2 class applied here
-              onClick={() => setSelectedJob(job)}
-            >
-              <h2 className="text-2xl font-bold mb-2 text-[#b38600]">
-                {job.title}
-              </h2>
-              <p className="text-gray-600 mb-2">{job.description}</p>
-              <p className="text-blue-800 italic font-semibold">
-                Location: {job.location}
-              </p>
-              <p className="text-green-600 font-semibold mt-2">
-                Price: ${job.price}
-              </p>
-            </button>
-          ))}
-        </div>
+        {view === "list" ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 pl-10 pr-10 pb-20">
+            {filteredJob.map((job) => (
+              <button
+                key={job.id}
+                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 hidden3" // hidden2 class applied here
+                onClick={() => setSelectedJob(job)}
+              >
+                <h2 className="text-2xl font-bold mb-2 text-[#b38600]">
+                  {job.title}
+                </h2>
+                <p className="text-gray-600 mb-2">{job.description}</p>
+                <p className="text-blue-800 italic font-semibold">
+                  Location: {job.location}
+                </p>
+                <p className="text-green-600 font-semibold mt-2">
+                  Price: ${job.price}
+                </p>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="h-[calc(100vh-350px)]"> {/* Adjust height to fill viewport minus the height of other elements */}
+            <MapBasic jobs={filteredJob} />
+          </div>
+        )}
       </div>
 
       {/* Popup Modal */}

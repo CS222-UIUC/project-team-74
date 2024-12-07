@@ -1,5 +1,6 @@
-import React, { useMemo, useState, useEffect } from "react";
-import axios from "axios";
+import React, { useMemo, useState } from "react";
+// import axios from "axios";
+import PropTypes from 'prop-types';
 import Map, {
   Marker,
   Popup,
@@ -13,20 +14,20 @@ import Map, {
 import Pin from "./pin";
 // import CAMPUS from "./campus.json";
 
-function MapBasic() {
+function MapBasic({ jobs }) {
   const [popupInfo, setPopupInfo] = useState(null);
-  const [jobs, setJobs] = useState([]);
+  // const [jobs, setJobs] = useState([]); 
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/job-postings/jobs/")
-      .then((response) => {
-        setJobs(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the job postings!", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://127.0.0.1:8000/job-postings/jobs/")
+  //     .then((response) => {
+  //       setJobs(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error fetching the job postings!", error);
+  //     });
+  // }, []);
 
   const pins = useMemo(
     () =>
@@ -104,5 +105,24 @@ function MapBasic() {
     </>
   );
 }
+MapBasic.propTypes = {
+  jobs: PropTypes.arrayOf(
+    PropTypes.shape({
+      coordinates: PropTypes.shape({
+        longitude: PropTypes.number,
+        latitude: PropTypes.number,
+      }),
+      price: PropTypes.number,
+      title: PropTypes.string,
+      location: PropTypes.string,
+      user: PropTypes.shape({
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
+        email: PropTypes.string,
+      }),
+    })
+  ).isRequired,
+};
 
 export default MapBasic;
+export { MapBasic };
