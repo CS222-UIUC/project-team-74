@@ -200,7 +200,7 @@ const ProfileEditor = ({
               id="username"
               value={user.username}
               disabled
-              className="block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 cursor-not-allowed px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm bg-gray-100 cursor-not-allowed px-2 py-1.5 bg-gray-50 text-gray-900"
             />
           </div>
         </div>
@@ -208,7 +208,7 @@ const ProfileEditor = ({
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 bg-white"
           >
             Email
           </label>
@@ -220,7 +220,7 @@ const ProfileEditor = ({
               value={user.email}
               onChange={handleChange}
               required
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-gray-50 text-gray-900"
             />
           </div>
         </div>
@@ -258,7 +258,7 @@ const ProfileEditor = ({
               id="first_name"
               value={user.first_name}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-gray-50 text-gray-900"
             />
           </div>
         </div>
@@ -277,7 +277,7 @@ const ProfileEditor = ({
               id="last_name"
               value={user.last_name}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5  bg-gray-50 text-gray-900"
             />
           </div>
         </div>
@@ -296,7 +296,7 @@ const ProfileEditor = ({
               id="location"
               value={user.location}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-gray-50 text-gray-900 "
             />
           </div>
         </div>
@@ -317,7 +317,7 @@ const ProfileEditor = ({
                   id="specialty"
                   value={user.specialty}
                   onChange={handleChange}
-                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+                  className="block w-full  border-2 bg-gray-50 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
                 />
               </div>
             </div>
@@ -336,7 +336,7 @@ const ProfileEditor = ({
                   id="details"
                   value={user.details}
                   onChange={handleChange}
-                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+                  className="block w-full  border-2 bg-gray-50 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-white"
                   rows="4"
                 />
               </div>
