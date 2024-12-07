@@ -1,14 +1,13 @@
 .job-post-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    height: calc(100vh - 64px); /* Adjust height to account for the navbar */
-    width: 100%;
-    
-    background-color: rgb(247, 248, 233);
-    color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(247, 248, 233);
+  color: black;
 }
 
 .job-post-form {
