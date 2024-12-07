@@ -94,10 +94,15 @@ function Browse() {
               </div>
 
               <div className="flex flex-wrap w-full justify-center items-center px-12">
+                
                 {filteredHandymen.map((handyman) => (
                   <Handyman
                     key={handyman.id}
-                    imgSrc="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar11.jpg"
+                    imgSrc={
+                      handyman.profile_image
+                        ? "http://127.0.0.1:8000/" + handyman.profile_image
+                        : "http://127.0.0.1:8000/media/default_images/default_profile.png"
+                    }
                     first_name={handyman.first_name}
                     last_name={handyman.last_name}
                     specialty={handyman.specialty}
@@ -130,7 +135,11 @@ function Browse() {
             </button>
             <img
               className="w-24 h-24 rounded-full mx-auto mb-4"
-              src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar11.jpg"
+              src={
+                selectedHandyman.profile_image
+                  ? "http://127.0.0.1:8000/" + selectedHandyman.profile_image
+                  : "http://127.0.0.1:8000/media/default_images/default_profile.png"
+              }
               alt={selectedHandyman.first_name}
             />
             <h2 className="text-xl font-bold text-center text-[#a67905]">
