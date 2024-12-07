@@ -90,7 +90,7 @@ RolePicker.propTypes = {
 };
 
 const ProfileDisplay = ({ user, onEdit }) => (
-  <div className="mx-auto mt-16 max-w-4xl">
+  <div className="mx-auto mt-16 max-w-4xl hidden3">
     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-8">
       <h1 className="text-4xl text-indigo-600 font-bold mb-6">
         Your Profile {user.is_handyman === 1 ? ": Handyman" : ": Requester"}
@@ -590,8 +590,8 @@ const Profile = () => {
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-4xl text-center hidden3  "  style={{ backgroundColor: 'transparent' }}>
-        <h2 className="text-base/7 font-semibold text-indigo-600">
+      <div className="mx-auto max-w-4xl text-center  hidden3  "  style={{ backgroundColor: 'transparent' }}>
+        <h2 className="text-base/7 font-semibold  text-indigo-600">
           {user.is_handyman === -1 ? "Choose Your Role" : "Your Profile"}
         </h2>
         <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
