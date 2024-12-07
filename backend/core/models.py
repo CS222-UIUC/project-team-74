@@ -11,6 +11,7 @@ class User(AbstractUser):
     location = models.CharField(max_length=255, default="Champaign", blank=True)
     details = models.TextField(blank=True, null=True)
     specialty = models.CharField(max_length=60, default="General", blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True, default='default_images/default_profile.png')
 
     # Add related_name attributes to avoid conflicts with the built-in User model
     groups = models.ManyToManyField(
