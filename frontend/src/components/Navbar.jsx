@@ -60,47 +60,23 @@ function Navbar() {
       <Link to="/home" className="element" id="name">
         HandyHelper&nbsp;<i className="fas fa-wrench"></i>
       </Link>
-      <Link to="/about-us" className="element">
-        ABOUT US
-      </Link>
 
-      {user.is_handyman !== 1 && (
+      {!isLoggedIn && (
         <>
-          {isLoggedIn ? (
-            <>
-              <Link to="/post" className="element">
-                POST A REQUEST
-              </Link>
-              
-              <Link to="/review" className="element">
-                WRITE A REVIEW
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="element">
-                POST A REQUEST
-              </Link>
-              
-              <Link to="/login" className="element">
-                WRITE A REVIEW
-              </Link>
-            </>
-          )}
-          <Link to="/browse" className="element">
-            BROWSE HANDYMEN
+          <Link to="/about-us" className="element">
+            ABOUT US
+          </Link>
+          <Link to="/login" className="element">
+            LOG IN
           </Link>
         </>
       )}
 
-      {user.is_handyman === 1 && (
-        <Link to="/posted-jobs" className="element">
-          JOBS POSTING
-        </Link>
-      )}
-
-      {isLoggedIn ? (
+      {isLoggedIn && user.is_handyman === 1 && (
         <>
+          <Link to="/posted-jobs" className="element">
+            JOBS POSTING
+          </Link>
           <Link to="/profile" className="element">
             PROFILE
           </Link>
@@ -108,10 +84,23 @@ function Navbar() {
             LOG OUT
           </button>
         </>
-      ) : (
-        <Link to="/login" className="element">
-          LOG IN
-        </Link>
+      )}
+
+      {isLoggedIn && user.is_handyman !== 1 && (
+        <>
+          <Link to="/post" className="element">
+            POST A REQUEST
+          </Link>
+          <Link to="/browse" className="element">
+            BROWSE HANDYMEN
+          </Link>
+          <Link to="/profile" className="element">
+            PROFILE
+          </Link>
+          <button onClick={handleLogout} className="element">
+            LOG OUT
+          </button>
+        </>
       )}
     </div>
   );
