@@ -445,7 +445,7 @@ const Profile = () => {
 
   
     return () => observer.disconnect();
-  }, [user,loading]);
+  }, [user,loading, editMode]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -553,6 +553,7 @@ const Profile = () => {
   const handleCancelEdit = () => {
     setEditMode(false);
     setError("");
+    console.log("Edit mode:", editMode);  // Verify if this updates correctly
   };
 
   if (loading) {
