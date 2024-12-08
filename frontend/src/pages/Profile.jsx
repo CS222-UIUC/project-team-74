@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -89,9 +90,25 @@ RolePicker.propTypes = {
 };
 
 const ProfileDisplay = ({ user, onEdit }) => (
-  <div className="mx-auto mt-16 max-w-4xl">
+  <div className="mx-auto mt-16 max-w-4xl hidden3">
     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-8">
-      <h1 className="text-4xl text-indigo-600 font-bold mb-6">Your Profile</h1>
+      <h1 className="text-4xl text-indigo-600 font-bold mb-6">
+        Your Profile {user.is_handyman === 1 ? ": Handyman" : ": Requester"}
+      </h1>
+
+      {/* Profile Image Display */}
+      <div className="mb-6 flex justify-center">
+        <img
+          src={
+            user.profile_image
+              ? user.profile_image
+              : "/media/default_images/default_profile.png"
+          }
+          alt="Profile"
+          className="w-32 h-32 rounded-full mx-auto"
+        />
+      </div>
+
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
         <div>
           <h3 className="text-sm font-medium text-gray-700">Username</h3>
@@ -109,10 +126,22 @@ const ProfileDisplay = ({ user, onEdit }) => (
           <h3 className="text-sm font-medium text-gray-700">Last Name</h3>
           <p className="mt-1 text-sm text-gray-900">{user.last_name}</p>
         </div>
-        <div className="sm:col-span-2">
+        <div>
           <h3 className="text-sm font-medium text-gray-700">Location</h3>
           <p className="mt-1 text-sm text-gray-900">{user.location}</p>
         </div>
+        {user.is_handyman === 1 && (
+          <>
+            <div>
+              <h3 className="text-sm font-medium text-gray-700">Specialty</h3>
+              <p className="mt-1 text-sm text-gray-900">{user.specialty}</p>
+            </div>
+            <div className="sm:col-span-2">
+              <h3 className="text-sm font-medium text-gray-700">Details</h3>
+              <p className="mt-1 text-sm text-gray-900">{user.details}</p>
+            </div>
+          </>
+        )}
       </div>
       <button
         onClick={onEdit}
@@ -131,6 +160,10 @@ ProfileDisplay.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
+    specialty: PropTypes.string,
+    details: PropTypes.string,
+    is_handyman: PropTypes.number.isRequired,
+    profile_image: PropTypes.string,
   }).isRequired,
   onEdit: PropTypes.func.isRequired,
 };
@@ -140,12 +173,18 @@ const ProfileEditor = ({
   handleChange,
   handleProfileSubmit,
   handleCancel,
+  handleImageChange,
   updating,
   error,
 }) => (
   <div className="mx-auto mt-16 max-w-4xl">
-    <form onSubmit={handleProfileSubmit} className="bg-white shadow overflow-hidden sm:rounded-lg p-8 space-y-8">
-      <h1 className="text-4xl text-indigo-600 font-bold mb-6">Edit Your Profile</h1>
+    <form
+      onSubmit={handleProfileSubmit}
+      className="bg-white shadow overflow-hidden sm:rounded-lg p-8 space-y-8"
+    >
+      <h1 className="text-4xl text-indigo-600 font-bold mb-6">
+        Edit Your Profile
+      </h1>
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
         <div>
           <label
@@ -161,7 +200,7 @@ const ProfileEditor = ({
               id="username"
               value={user.username}
               disabled
-              className="block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 cursor-not-allowed px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm bg-gray-100 cursor-not-allowed px-2 py-1.5 bg-gray-50 text-gray-900"
             />
           </div>
         </div>
@@ -169,7 +208,7 @@ const ProfileEditor = ({
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 bg-white"
           >
             Email
           </label>
@@ -181,7 +220,26 @@ const ProfileEditor = ({
               value={user.email}
               onChange={handleChange}
               required
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-gray-50 text-gray-900"
+            />
+          </div>
+        </div>
+
+        {/* Profile Image Upload Field */}
+        <div>
+          <label
+            htmlFor="profile_image"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Profile Image
+          </label>
+          <div className="mt-1">
+            <input
+              type="file"
+              name="profile_image"
+              id="profile_image"
+              onChange={handleImageChange}
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
             />
           </div>
         </div>
@@ -200,7 +258,7 @@ const ProfileEditor = ({
               id="first_name"
               value={user.first_name}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-gray-50 text-gray-900"
             />
           </div>
         </div>
@@ -219,12 +277,12 @@ const ProfileEditor = ({
               id="last_name"
               value={user.last_name}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5  bg-gray-50 text-gray-900"
             />
           </div>
         </div>
 
-        <div className="sm:col-span-2">
+        <div>
           <label
             htmlFor="location"
             className="block text-sm font-medium text-gray-700"
@@ -238,15 +296,56 @@ const ProfileEditor = ({
               id="location"
               value={user.location}
               onChange={handleChange}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+              className="block w-full border-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-gray-50 text-gray-900 "
             />
           </div>
         </div>
+
+        {user.is_handyman === 1 && (
+          <>
+            <div>
+              <label
+                htmlFor="specialty"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Specialty
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="specialty"
+                  id="specialty"
+                  value={user.specialty}
+                  onChange={handleChange}
+                  className="block w-full  border-2 bg-gray-50 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="details"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Details
+              </label>
+              <div className="mt-1">
+                <textarea
+                  type="text"
+                  name="details"
+                  id="details"
+                  value={user.details}
+                  onChange={handleChange}
+                  className="block w-full  border-2 bg-gray-50 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2 py-1.5 bg-white"
+                  rows="4"
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
-      {error && (
-        <div className="text-red-500 text-sm">{error}</div>
-      )}
+      {error && <div className="text-red-500 text-sm">{error}</div>}
 
       <div className="flex justify-end space-x-4">
         <button
@@ -278,10 +377,15 @@ ProfileEditor.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
+    specialty: PropTypes.string,
+    details: PropTypes.string,
+    is_handyman: PropTypes.number.isRequired,
+    profile_image: PropTypes.string,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleProfileSubmit: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired,
   updating: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
@@ -294,7 +398,10 @@ const Profile = () => {
     last_name: "",
     location: "",
     is_handyman: -1, // -1 indicates role not selected
+    details: "",
+    specialty: ""
   });
+  const [profileImageFile, setProfileImageFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [updating, setUpdating] = useState(false);
@@ -317,8 +424,46 @@ const Profile = () => {
       }
     };
 
+
+
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show3');
+        } else {
+          entry.target.classList.remove('show3');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden3'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, [user,loading, editMode]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show4');
+        } else {
+          entry.target.classList.remove('show4');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden4'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, [user,loading]);
 
   const handleRoleSelect = async (role) => {
     setUpdating(true);
@@ -348,23 +493,58 @@ const Profile = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    setProfileImageFile(e.target.files[0]);
+  };
+
+
+  
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     setUpdating(true);
     try {
-      await axios.put("http://127.0.0.1:8000/api/profile/", user, {
+      const formData = new FormData();
+
+      // Only add fields to FormData if they have a non-empty value
+      if (user.email) {
+        formData.append('email', user.email);
+      }
+      if (user.first_name) {
+        formData.append('first_name', user.first_name);
+      }
+      if (user.last_name) {
+        formData.append('last_name', user.last_name);
+      }
+      if (user.location) {
+        formData.append('location', user.location);
+      }
+      if (user.specialty) {
+        formData.append('specialty', user.specialty);
+      }
+      if (user.details) {
+        formData.append('details', user.details);
+      }
+      if (profileImageFile) {
+        formData.append('profile_image', profileImageFile);
+      }
+
+      await axios.put("http://127.0.0.1:8000/api/profile/", formData, {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
         },
       });
+
       alert("Profile updated successfully");
       setEditMode(false);
-      setUpdating(false);
+      window.location.reload();
     } catch (error) {
       setError("Failed to update profile");
+    } finally {
       setUpdating(false);
     }
   };
+
 
   const handleEditToggle = () => {
     setEditMode(true);
@@ -373,6 +553,7 @@ const Profile = () => {
   const handleCancelEdit = () => {
     setEditMode(false);
     setError("");
+    console.log("Edit mode:", editMode);  // Verify if this updates correctly
   };
 
   if (loading) {
@@ -391,8 +572,10 @@ const Profile = () => {
     );
   }
 
+
+
   return (
-    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 min-h-screen">
+    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 min-h-screen hidden3">
       {/* Background Gradient */}
       <div
         aria-hidden="true"
@@ -403,13 +586,13 @@ const Profile = () => {
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
           }}
-          className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+          className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 hidden4 "
         />
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-4xl text-center">
-        <h2 className="text-base/7 font-semibold text-indigo-600">
+      <div className="mx-auto max-w-4xl text-center  hidden3  "  style={{ backgroundColor: 'transparent' }}>
+        <h2 className="text-base/7 font-semibold  text-indigo-600">
           {user.is_handyman === -1 ? "Choose Your Role" : "Your Profile"}
         </h2>
         <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
@@ -420,7 +603,7 @@ const Profile = () => {
             : "Manage Your Profile"}
         </p>
       </div>
-      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8">
+      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8 hidden3"  style={{ backgroundColor: 'transparent' }}>
         {user.is_handyman === -1
           ? "Whether you’re looking to hire a skilled handyman or offer your services, we provide the best tools to support you."
           : editMode
@@ -437,6 +620,7 @@ const Profile = () => {
           handleChange={handleChange}
           handleProfileSubmit={handleProfileSubmit}
           handleCancel={handleCancelEdit}
+          handleImageChange={handleImageChange}
           updating={updating}
           error={error}
         />

@@ -2,10 +2,33 @@ import React from 'react'
 
 import './Hero_AboutUs.css'
 
+import { useEffect } from 'react';
+
 function Hero_AboutUs() {
+
+
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show2');
+        } else {
+          entry.target.classList.remove('show2');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden2'); 
+    hiddenElements.forEach((el) => observer.observe(el));
+
+  
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
-    <div className="section-aboutus">
+    <div className="section-aboutus hidden2">
         <img id='bg-image-aboutus' src='public\images\image5.jpg' />
         <div className='container-aboutus'>
             <h1 className='title-aboutus'>Who are we?</h1>
