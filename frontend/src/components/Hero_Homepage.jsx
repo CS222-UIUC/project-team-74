@@ -1,23 +1,45 @@
-import React, { useEffect } from 'react';
-import './Hero_Homepage.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import "./Hero_Homepage.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Hero_Homepage() {
+  const [user, setUser] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/profile/", {
+          headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+        });
+        setUser(response.data);
+        setIsLoggedIn(true);
+        console.log(user);
+      } catch (error) {
+        console.log(error);
+        setIsLoggedIn(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('show');
+          entry.target.classList.add("show");
         } else {
-          entry.target.classList.remove('show');
+          entry.target.classList.remove("show");
         }
       });
     });
 
-    const hiddenElements = document.querySelectorAll('.hidden'); 
+    const hiddenElements = document.querySelectorAll(".hidden");
     hiddenElements.forEach((el) => observer.observe(el));
 
-  
     return () => observer.disconnect();
   }, []);
 
@@ -25,10 +47,30 @@ function Hero_Homepage() {
     <>
       <div className="section-homepage hidden">
         <div className="text-homepage">
-          <div id="adv-homepage">FASTEST<br />CHEAPEST<br />MOST CONVENIENT</div>
+          <div id="adv-homepage">
+            FASTEST
+            <br />
+            CHEAPEST
+            <br />
+            MOST CONVENIENT
+          </div>
           <div>
             <div id="text-above-button-homepage">What are you waiting for?</div>
-            <Link to="/post" id="button-homepage">FIND YOUR HANDYMEN NOW</Link>
+            {isLoggedIn ? (
+              user.is_handyman === 1 ? (
+                <Link to="/posted-jobs" id="button-homepage">
+                  VIEW POSTED JOBS
+                </Link>
+              ) : (
+                <Link to="/post" id="button-homepage">
+                  FIND YOUR HANDYMEN NOW
+                </Link>
+              )
+            ) : (
+              <Link to="/login" id="button-homepage">
+                FIND YOUR HANDYMEN NOW
+              </Link>
+            )}
           </div>
         </div>
         <img id="repair-homepage" src="/images/image3.jpeg" alt="repair man" />
@@ -36,22 +78,79 @@ function Hero_Homepage() {
 
       <div className="section-homepage hidden" id="reverse-homepage">
         <div className="text-homepage hidden" id="text-reverse-homepage">
-          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Skilled Handymen</div>
-          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Easy Job Posting</div>
-          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Direct Chat</div>
-          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Secure Payment</div>
-          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Location-Based Search</div>
-          <div ><i className="fas fa-check-circle" style={{ color: '#9E8C61' }} /> Full of Reviews</div>
+          <div>
+            <i className="fas fa-check-circle" style={{ color: "#9E8C61" }} />{" "}
+            Skilled Handymen
+          </div>
+          <div>
+            <i className="fas fa-check-circle" style={{ color: "#9E8C61" }} />{" "}
+            Easy Job Posting
+          </div>
+          <div>
+            <i className="fas fa-check-circle" style={{ color: "#9E8C61" }} />{" "}
+            Direct Chat
+          </div>
+          <div>
+            <i className="fas fa-check-circle" style={{ color: "#9E8C61" }} />{" "}
+            Secure Payment
+          </div>
+          <div>
+            <i className="fas fa-check-circle" style={{ color: "#9E8C61" }} />{" "}
+            Location-Based Search
+          </div>
+          <div>
+            <i className="fas fa-check-circle" style={{ color: "#9E8C61" }} />{" "}
+            Full of Reviews
+          </div>
         </div>
-        <img className="repair-reverse-homepage " src="/images/image2.png" alt="repair man" />
+        <img
+          className="repair-reverse-homepage "
+          src="/images/image2.png"
+          alt="repair man"
+        />
       </div>
 
       <div className="section-homepage hidden" style={{ height: "500px" }}>
         <div className="grid-container-homepage">
           <div id="review-title-homepage">Review</div>
-          <Link to="/post" id="button-end1-homepage">Find Your Handymen</Link>
-          <Link to="/browse" id="button-end2-homepage">Browse Handyman Profile</Link>
-          <div id="review-text-homepage">&quot;HandyHelper made it incredibly easy to find trustworthy handymen. I quickly connected with a local student for a repair, and the whole process—from messaging to payment—was seamless. Highly recommend it for college students needing affordable, reliable help!&quot;</div>
+
+          {isLoggedIn ? (
+            user.is_handyman === 1 ? (
+              <>
+                <Link to="/posted-jobs" id="button-end1-homepage">
+                  View Posted Jobs
+                </Link>
+                <Link to="/profile" id="button-end2-homepage">
+                  View Profile
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/post" id="button-end1-homepage">
+                  Find Your Handymen
+                </Link>
+                <Link to="/browse" id="button-end2-homepage">
+                  Browse Handyman Profile
+                </Link>
+              </>
+            )
+          ) : (
+            <>
+              <Link to="/login" id="button-end1-homepage">
+                Find Your Handymen
+              </Link>
+              <Link to="/login" id="button-end2-homepage">
+                Browse Handyman Profile
+              </Link>
+            </>
+          )}
+          <div id="review-text-homepage">
+            &quot;HandyHelper made it incredibly easy to find trustworthy
+            handymen. I quickly connected with a local student for a repair, and
+            the whole process—from messaging to payment—was seamless. Highly
+            recommend it for college students needing affordable, reliable
+            help!&quot;
+          </div>
         </div>
       </div>
     </>
