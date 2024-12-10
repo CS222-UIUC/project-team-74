@@ -51,9 +51,9 @@ function LoginComp() {
                         />
                         <FaLock className={styles.icon} />
                     </div>
-                    <div className={styles.forgot}>
+                    {/* <div className={styles.forgot}>
                         <a href="">Forgot password</a>
-                    </div>
+                    </div> */}
                     <button type="submit" className={styles.loginbutton}>Login</button>
                     <div className={styles['register-link']}>
                         <p>Don&apos;t have an account? <Link to="/register">Register</Link></p>
