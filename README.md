@@ -12,6 +12,7 @@ HandyHelper is a web-based platform that connects requesters with handymen, allo
 
 ## **Technical Architecture**
 The HandyHelper app uses React.js for the frontend, Django for backend logic and CRUD operations, and SQLite for data storage. It integrates MapTiler and MapLibre GL JS for geolocation services, displaying job locations and handling address lookups, with the browser hosting the platform and facilitating API communication.
+![Map Api](https://github.com/user-attachments/assets/f6b9b525-f9c3-4ade-9ec2-016dce1e24cb)
 
 
 ## **Prerequisites**
