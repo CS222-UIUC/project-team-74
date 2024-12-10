@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from "react";
+// import axios from "axios";
+import PropTypes from 'prop-types';
 import Map, {
   Marker,
   Popup,
@@ -10,31 +12,47 @@ import Map, {
 
 // import ControlPanel from "./control-panel";
 import Pin from "./pin";
-import CAMPUS from "./campus.json";
+// import CAMPUS from "./campus.json";
 
-function MapBasic() {
+function MapBasic({ jobs }) {
   const [popupInfo, setPopupInfo] = useState(null);
+  // const [jobs, setJobs] = useState([]); 
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://127.0.0.1:8000/job-postings/jobs/")
+  //     .then((response) => {
+  //       setJobs(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error fetching the job postings!", error);
+  //     });
+  // }, []);
 
   const pins = useMemo(
     () =>
-      CAMPUS.map((location, index) => (
-        <Marker
-          key={`marker-${index}`}
-          longitude={location.longitude}
-          latitude={location.latitude}
-          price={location.price}
-          anchor="bottom"
-          onClick={(e) => {
-            // If we let the click event propagates to the map, it will immediately close the popup
-            // with `closeOnClick: true`
-            e.originalEvent.stopPropagation();
-            setPopupInfo(location);
-          }}
-        >
-          <Pin price={location.price} />
-        </Marker>
-      )),
-    []
+      jobs
+        .filter(
+          (job) =>
+            job.coordinates &&
+            !isNaN(job.coordinates.longitude) &&
+            !isNaN(job.coordinates.latitude)
+        )
+        .map((job, index) => (
+          <Marker
+            key={`marker-${index}`}
+            longitude={job.coordinates.longitude}
+            latitude={job.coordinates.latitude}
+            anchor="bottom"
+            onClick={(e) => {
+              e.originalEvent.stopPropagation();
+              setPopupInfo(job);
+            }}
+          >
+            <Pin price={job.price} />
+          </Marker>
+        )),
+    [jobs]
   );
 
   return (
@@ -60,20 +78,26 @@ function MapBasic() {
         {popupInfo && (
           <Popup
             anchor="top"
-            longitude={Number(popupInfo.longitude)}
-            latitude={Number(popupInfo.latitude)}
+            longitude={Number(popupInfo.coordinates.longitude)}
+            latitude={Number(popupInfo.coordinates.latitude)}
             onClose={() => setPopupInfo(null)}
           >
-            <div>
-              {popupInfo.city}, {popupInfo.state} |{" "}
-              <a
-                target="_new"
-                href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}
-              >
-                Wikipedia
-              </a>
+            <div className="text-black">
+              {popupInfo.title} | {popupInfo.location}
             </div>
-            <img width="100%" src={popupInfo.image} />
+            <div className="text-black">
+              Price: ${popupInfo.price}
+            </div>
+            <div className="text-black">
+              Request by: {popupInfo.user.first_name ? popupInfo.user.first_name + " " + popupInfo.user.last_name : "N/A"}
+            </div>
+            <a
+              className="text-blue-500"
+              target="_new"
+              href={popupInfo.user.email ? `mailto:${popupInfo.user.email}` : "javascript:void(0)"}
+            >
+              Contact Now
+            </a>
           </Popup>
         )}
       </Map>
@@ -81,5 +105,24 @@ function MapBasic() {
     </>
   );
 }
+MapBasic.propTypes = {
+  jobs: PropTypes.arrayOf(
+    PropTypes.shape({
+      coordinates: PropTypes.shape({
+        longitude: PropTypes.number,
+        latitude: PropTypes.number,
+      }),
+      price: PropTypes.number,
+      title: PropTypes.string,
+      location: PropTypes.string,
+      user: PropTypes.shape({
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
+        email: PropTypes.string,
+      }),
+    })
+  ).isRequired,
+};
 
 export default MapBasic;
+export { MapBasic };

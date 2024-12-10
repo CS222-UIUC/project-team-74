@@ -4,18 +4,35 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class JobPostingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = JobPosting
-        fields = ['id', 'title', 'description', 'location', 'price', 'coordinates', 'created_at', 'status', 'user']
 
 class UserSerializer(serializers.ModelSerializer):
+    profile_image = serializers.ImageField(required=False, allow_null=True)
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'location', 'is_handyman']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'location', 'is_handyman', 'details', 'specialty', 'profile_image']
         extra_kwargs = {
             'password': {'write_only': True}
         }
+
+    def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.location = validated_data.get('location', instance.location)
+        instance.is_handyman = validated_data.get('is_handyman', instance.is_handyman)
+        instance.specialty = validated_data.get('specialty', instance.specialty)
+        instance.details = validated_data.get('details', instance.details)
+
+        if 'profile_image' in validated_data:
+            profile_image = validated_data.pop('profile_image')
+            if profile_image:
+                instance.profile_image = profile_image
+            elif profile_image is None:
+                instance.profile_image.delete(save=False)
+
+        instance.save()
+        return instance
 
     def create(self, validated_data):
         # Create a new user and set the password correctly
@@ -30,6 +47,19 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
     
+    def get_profile_image(self, obj):
+        request = self.context.get('request')
+        if obj.profile_image and request:
+            return request.build_absolute_uri(obj.profile_image.url)
+        return None
+    
+
+class JobPostingSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = JobPosting
+        fields = ['id', 'title', 'description', 'location', 'price', 'coordinates', 'created_at', 'status', 'user']
+
 class WorkHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkHistory

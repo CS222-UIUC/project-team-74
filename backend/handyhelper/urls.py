@@ -18,10 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core.views import job_posting_list
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("core.urls")),
     path("job-postings/", include("core.urls")),
     path("job-postings/jobs/", job_posting_list, name='job-posting-list'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

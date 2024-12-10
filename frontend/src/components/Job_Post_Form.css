@@ -1,16 +1,29 @@
 .job-post-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    height: calc(100vh - 64px); /* Adjust height to account for the navbar */
-    width: 100%;
-    background-color: rgb(247, 248, 233);
-    color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(247, 248, 233);
+  color: black;
 }
 
 .job-post-form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    gap: 15px;
+
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: "Jost", sans-serif;
+}
+
+.job-post-form2 {
     display: flex;
     flex-direction: column;
     width: 500px;
@@ -38,7 +51,7 @@
     border-radius: 5px;
     font-family: "Jost", sans-serif;
     background-color: #f9f9f9;
-    color: #000;
+    color: #000000;
 }
 
 .job-post-form button {
@@ -70,3 +83,31 @@
     transform: translateX(0);
     transition: all 0.5s;
   }
+
+  .hidden3{
+    opacity:0;
+    filter:blur(10px);
+    transition: all 1s;
+
+  }
+
+  .show3{
+    opacity: 0.5;
+    filter:blur(0px);
+    transform: translateX(0);
+    transition: all 1s;
+  }
+  
+
+  .hidden4 {
+    opacity: 0;
+    transform: rotate(90deg);  /* Initially no rotation */
+    transition: all 2s ease-in-out; /* Smooth transition for all properties */
+  }
+  
+  .show4 {
+    opacity: 1;  /* Fully visible */
+    transform: rotate(0deg);  /* Rotate by 360 degrees */
+    transition: all 2s ease-in-out; /* Smooth transition for all properties */
+  }
+  

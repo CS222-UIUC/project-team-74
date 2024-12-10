@@ -8,13 +8,24 @@ import Map, {
 } from "react-map-gl/maplibre";
 import Pin from "./pin";
 
+async function fetchAddress(longitude, latitude) {
+  const response = await fetch(
+    `https://api.maptiler.com/geocoding/${longitude},${latitude}.json?key=${import.meta.env.VITE_MAPTILER_KEY}`
+  );
+  const data = await response.json();
+  return data.features[0]?.place_name || "Unknown location";
+}
+
 function MapPost({ onLocationSelect }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
 
-  const handleMapClick = (event) => {
+  const handleMapClick = async (event) => {
     const { lngLat } = event;
-    setSelectedLocation({ longitude: lngLat.lng, latitude: lngLat.lat });
-    onLocationSelect({ longitude: lngLat.lng, latitude: lngLat.lat });
+    const coords = { longitude: lngLat.lng, latitude: lngLat.lat };
+    const address = await fetchAddress(lngLat.lng, lngLat.lat);
+    setSelectedLocation(coords);
+    onLocationSelect(coords, address);
+    console.log("Selected location:", coords, address);
   };
 
   return (

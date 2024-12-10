@@ -57,9 +57,9 @@
 }
 
 #repair-homepage {
-    height: 400px;
+    width: 60%;
+    height: auto;
     box-shadow: -10px 10px 0px #c1b482;
-    flex-shrink: 1;
     object-fit: cover;
 }
 

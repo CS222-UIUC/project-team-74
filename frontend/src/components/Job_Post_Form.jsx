@@ -4,35 +4,31 @@ import './Job_Post_Form.css';
 import { MdOutlineTitle, MdSubtitles } from "react-icons/md";
 import { IoIosPricetag } from "react-icons/io";
 import MapPost from '../maps/MapPost';
+import { useEffect } from 'react';
 
 const Job_Post_Form = () => {
+    
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [coordinates, setCoordinates] = useState(null);
-
-    const getCsrfToken = () => {
-        const cookieValue = document.cookie.split('; ')
-            .find(row => row.startsWith('csrftoken='))
-            ?.split('=')[1];
-        return cookieValue || '';
-    };
+    const [location, setLocation] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Posting job:', title, description, price, coordinates);
+        console.log('Posting job:', title, description, price, coordinates, location);
     
         try {
-            const csrfToken = getCsrfToken();
+            const token = localStorage.getItem('token');
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/jobs/',
-                { title, description, price, coordinates },
+                { title, description, price, coordinates, location },
                 {
                     headers: {
-                        'X-CSRFToken': csrfToken,
+                        'Authorization': `Token ${token}`,
+                        'Content-Type': 'application/json',
                     },
-                    withCredentials: true,
                 }
             );
             
@@ -43,6 +39,7 @@ const Job_Post_Form = () => {
                 setDescription('');
                 setPrice('');
                 setCoordinates(null);
+                setLocation('');
             } else {
                 console.error('Job not created:', response.status, response.data);
             }
@@ -51,14 +48,33 @@ const Job_Post_Form = () => {
         }
     };
 
-    const handleLocationSelect = (coords) => {
+    const handleLocationSelect = (coords, address) => {
         setCoordinates(coords);
+        setLocation(address);
     };
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show2');
+            } else {
+              entry.target.classList.remove('show2');
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll('.hidden2'); 
+        hiddenElements.forEach((el) => observer.observe(el));
+    
+      
+        return () => observer.disconnect();
+      }, []);
+
     return (
-        <div className="job-post-form-container">
+        <div className="job-post-form-container hidden2">
             <h1 className="font-roboto font-bold text-3xl text-green-700 pb-5">Post a Job Request</h1>
-            <form onSubmit={handleSubmit} className="job-post-form flex flex-col h-full">
+            <form onSubmit={handleSubmit} className="job-post-form flex flex-col h-full ">
                 <h1 className="font-roboto font-bold text-xl text-green-700">Job Title</h1>
                 <div className="relative w-90">
                     <input
