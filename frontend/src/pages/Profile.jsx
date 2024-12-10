@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -399,7 +398,7 @@ const Profile = () => {
     location: "",
     is_handyman: -1, // -1 indicates role not selected
     details: "",
-    specialty: ""
+    specialty: "",
   });
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -424,8 +423,6 @@ const Profile = () => {
       }
     };
 
-
-
     fetchUser();
   }, []);
 
@@ -433,54 +430,54 @@ const Profile = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('show3');
+          entry.target.classList.add("show3");
         } else {
-          entry.target.classList.remove('show3');
+          entry.target.classList.remove("show3");
         }
       });
     });
 
-    const hiddenElements = document.querySelectorAll('.hidden3'); 
+    const hiddenElements = document.querySelectorAll(".hidden3");
     hiddenElements.forEach((el) => observer.observe(el));
 
-  
     return () => observer.disconnect();
-  }, [user,loading, editMode]);
+  }, [user, loading, editMode]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('show4');
+          entry.target.classList.add("show4");
         } else {
-          entry.target.classList.remove('show4');
+          entry.target.classList.remove("show4");
         }
       });
     });
 
-    const hiddenElements = document.querySelectorAll('.hidden4'); 
+    const hiddenElements = document.querySelectorAll(".hidden4");
     hiddenElements.forEach((el) => observer.observe(el));
 
-  
     return () => observer.disconnect();
-  }, [user,loading]);
+  }, [user, loading]);
 
   const handleRoleSelect = async (role) => {
     setUpdating(true);
     try {
-      const updatedUser = {
-        ...user,
-        is_handyman: role === "handyman" ? 1 : 0,
-      };
-      await axios.put("http://127.0.0.1:8000/api/profile/", updatedUser, {
+      const formData = new FormData();
+      formData.append("is_handyman", role === "handyman" ? 1 : 0);
+
+      await axios.put("http://127.0.0.1:8000/api/profile/", formData, {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
         },
       });
-      setUser(updatedUser);
-      setUpdating(false);
+
+      setUser({ ...user, is_handyman: role === "handyman" ? 1 : 0 });
     } catch (error) {
+      console.error(error.response?.data || error.message);
       setError("Failed to update role");
+    } finally {
       setUpdating(false);
     }
   };
@@ -497,8 +494,6 @@ const Profile = () => {
     setProfileImageFile(e.target.files[0]);
   };
 
-
-  
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     setUpdating(true);
@@ -507,25 +502,25 @@ const Profile = () => {
 
       // Only add fields to FormData if they have a non-empty value
       if (user.email) {
-        formData.append('email', user.email);
+        formData.append("email", user.email);
       }
       if (user.first_name) {
-        formData.append('first_name', user.first_name);
+        formData.append("first_name", user.first_name);
       }
       if (user.last_name) {
-        formData.append('last_name', user.last_name);
+        formData.append("last_name", user.last_name);
       }
       if (user.location) {
-        formData.append('location', user.location);
+        formData.append("location", user.location);
       }
       if (user.specialty) {
-        formData.append('specialty', user.specialty);
+        formData.append("specialty", user.specialty);
       }
       if (user.details) {
-        formData.append('details', user.details);
+        formData.append("details", user.details);
       }
       if (profileImageFile) {
-        formData.append('profile_image', profileImageFile);
+        formData.append("profile_image", profileImageFile);
       }
 
       await axios.put("http://127.0.0.1:8000/api/profile/", formData, {
@@ -545,7 +540,6 @@ const Profile = () => {
     }
   };
 
-
   const handleEditToggle = () => {
     setEditMode(true);
   };
@@ -553,7 +547,7 @@ const Profile = () => {
   const handleCancelEdit = () => {
     setEditMode(false);
     setError("");
-    console.log("Edit mode:", editMode);  // Verify if this updates correctly
+    console.log("Edit mode:", editMode); // Verify if this updates correctly
   };
 
   if (loading) {
@@ -572,8 +566,6 @@ const Profile = () => {
     );
   }
 
-
-
   return (
     <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 min-h-screen hidden3">
       {/* Background Gradient */}
@@ -591,7 +583,10 @@ const Profile = () => {
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-4xl text-center  hidden3  "  style={{ backgroundColor: 'transparent' }}>
+      <div
+        className="mx-auto max-w-4xl text-center  hidden3  "
+        style={{ backgroundColor: "transparent" }}
+      >
         <h2 className="text-base/7 font-semibold  text-indigo-600">
           {user.is_handyman === -1 ? "Choose Your Role" : "Your Profile"}
         </h2>
@@ -603,7 +598,10 @@ const Profile = () => {
             : "Manage Your Profile"}
         </p>
       </div>
-      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8 hidden3"  style={{ backgroundColor: 'transparent' }}>
+      <p
+        className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8 hidden3"
+        style={{ backgroundColor: "transparent" }}
+      >
         {user.is_handyman === -1
           ? "Whether you’re looking to hire a skilled handyman or offer your services, we provide the best tools to support you."
           : editMode
